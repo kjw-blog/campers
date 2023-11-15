@@ -1,3 +1,11 @@
+'use client';
+
+import { signIn } from 'next-auth/react';
+
 export default function LoginPage() {
-  return <>로그인하기.</>;
+  return (
+    <div>
+      <button onClick={() => signIn()}>로그인</button>
+    </div>
+  );
 }
