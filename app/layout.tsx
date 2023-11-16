@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import './globals.css';
-import { getServerSession } from 'next-auth';
 
 import AuthProvider from '@/components/providers/auth-provider';
 

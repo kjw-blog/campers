@@ -1,16 +1,16 @@
-import NextAuth, { AuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 import NaverProvider from 'next-auth/providers/naver';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { db } from '@/lib/db';
 
 const SESSION_MAX_AGE_THREE_DAYS = 60 * 60 * 24 * 3;
 const SESSION_UPDATE_AGE_ONE_DAYS = 60 * 60 * 24;
 
 const handler = NextAuth({
   // prisma client 들어갈곳
-  adapter: PrismaAdapter(new PrismaClient()),
+  adapter: PrismaAdapter(db),
   providers: [
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID || '',
