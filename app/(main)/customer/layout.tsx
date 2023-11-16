@@ -6,11 +6,11 @@ export default function CustomerLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full">
+    <div className="flex h-full">
       <div className="fixed inset-y-0 z-30 h-full w-[72px] flex-col">
         <NavigationSidebar />
       </div>
-      <main></main>
+      <main className="flex-1 pl-[72px]">{children}</main>
     </div>
   );
 }

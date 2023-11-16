@@ -3,13 +3,14 @@ import NaverProvider from 'next-auth/providers/naver';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const SESSION_MAX_AGE_THREE_DAYS = 60 * 60 * 24 * 3;
 const SESSION_UPDATE_AGE_ONE_DAYS = 60 * 60 * 24;
 
 const handler = NextAuth({
   // prisma client 들어갈곳
-  adapter: PrismaAdapter(''),
+  adapter: PrismaAdapter(new PrismaClient()),
   providers: [
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID || '',
@@ -29,7 +30,22 @@ const handler = NextAuth({
     maxAge: SESSION_MAX_AGE_THREE_DAYS,
     updateAge: SESSION_UPDATE_AGE_ONE_DAYS,
   },
-  jwt: {},
+  callbacks: {
+    async jwt(token) {
+      token.user.name = '강정욱';
+      token.user.email = 'rkdwjddnr11@naver.com';
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+      }
+
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
