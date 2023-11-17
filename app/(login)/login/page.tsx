@@ -3,9 +3,13 @@
 import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
+  const onLogin = () => {
+    signIn('google');
+  };
+
   return (
     <div>
-      <button onClick={() => signIn()}>로그인</button>
+      <button onClick={onLogin}>로그인</button>
     </div>
   );
 }

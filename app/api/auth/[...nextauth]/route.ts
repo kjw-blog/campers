@@ -1,7 +1,5 @@
 import NextAuth from 'next-auth';
-import NaverProvider from 'next-auth/providers/naver';
-import GoogleProvider from 'next-auth/providers/google';
-import KakaoProvider from 'next-auth/providers/kakao';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from '@/lib/db';
 
@@ -12,37 +10,24 @@ const handler = NextAuth({
   // prisma client 들어갈곳
   adapter: PrismaAdapter(db),
   providers: [
-    NaverProvider({
-      clientId: process.env.NAVER_CLIENT_ID || '',
-      clientSecret: process.env.NAVER_CLIENT_ID || '',
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    }),
-    KakaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID || '',
-      clientSecret: process.env.KAKAO_CLIENT_SECRET || '',
-    }),
+    // CredentialsProvider({
+    //   name:''
+    // }),
   ],
+  pages: {
+    signIn: '/login',
+    newUser: '/signup',
+  },
   session: {
     strategy: 'jwt',
     maxAge: SESSION_MAX_AGE_THREE_DAYS,
     updateAge: SESSION_UPDATE_AGE_ONE_DAYS,
   },
   callbacks: {
-    async jwt(token) {
-      token.user.name = '강정욱';
-      token.user.email = 'rkdwjddnr11@naver.com';
-
+    async jwt({ token, user }) {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        session.user.name = token.name;
-        session.user.email = token.email;
-      }
-
       return session;
     },
   },
