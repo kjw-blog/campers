@@ -19,7 +19,18 @@ export default function LoginPage() {
 
   return (
     <form className="flex flex-1 flex-col space-y-12">
-      <Input />
+      <Input
+        label="아이디"
+        placeholder="아이디를 입력해 주세요."
+        type="text"
+        warning="아이디를 입력해 주세요."
+      />
+      <Input
+        label="비밀번호"
+        placeholder="비밀번호를 입력해 주세요."
+        type="password"
+        warning="비밀번호를 입력해 주세요."
+      />
       <button
         className="bg-camp-light w-full rounded-sm py-2 text-center font-semibold text-white"
         onClick={onLogin}
