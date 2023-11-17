@@ -22,7 +22,7 @@ module.exports = {
           light: '#FECDA6',
         },
         camp: {
-          heavy: '#3D8361',
+          heavy: '#42B983',
           middle2: '#73D13D',
           middle: '#7BD545',
           light: '#CFF1B9',
