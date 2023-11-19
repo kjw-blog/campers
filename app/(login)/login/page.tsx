@@ -2,6 +2,7 @@
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
 import { Input } from '@/components/common/input';
+import { useForm } from 'react-hook-form';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -13,9 +14,9 @@ const LoginForm = z.object({
 });
 
 export default function LoginPage() {
-  const onLogin = () => {
-    signIn('google');
-  };
+  const form = useForm();
+
+  const onLogin = () => {};
 
   return (
     <form className="flex flex-1 flex-col space-y-12">
@@ -32,7 +33,7 @@ export default function LoginPage() {
         warning="비밀번호를 입력해 주세요."
       />
       <button
-        className="bg-camp-light w-full rounded-sm py-2 text-center font-semibold text-white"
+        className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
         onClick={onLogin}
       >
         로그인
