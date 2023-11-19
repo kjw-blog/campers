@@ -14,13 +14,19 @@ const LoginForm = z.object({
 });
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm<z.infer<typeof LoginForm>>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<z.infer<typeof LoginForm>>({
     resolver: zodResolver(LoginForm),
   });
 
   const onLogin = (data: z.infer<typeof LoginForm>) => {
     console.log(data);
   };
+
+  console.log(errors);
 
   return (
     <form
@@ -31,17 +37,20 @@ export default function LoginPage() {
         label="아이디"
         placeholder="아이디를 입력해 주세요."
         type="text"
-        warning="아이디를 입력해 주세요."
+        warning={errors.userId?.message}
         register={register('userId')}
       />
       <Input
         label="비밀번호"
         placeholder="비밀번호를 입력해 주세요."
         type="password"
-        warning="비밀번호를 입력해 주세요."
+        warning={errors.userPw?.message}
         register={register('userPw')}
       />
-      <button className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white">
+      <button
+        disabled={isSubmitting}
+        className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+      >
         로그인
       </button>
     </form>
