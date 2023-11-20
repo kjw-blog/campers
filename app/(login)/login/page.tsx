@@ -26,8 +26,6 @@ export default function LoginPage() {
     console.log(data);
   };
 
-  console.log(errors);
-
   return (
     <form
       onSubmit={handleSubmit(onLogin)}
