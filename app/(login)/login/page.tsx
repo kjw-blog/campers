@@ -47,7 +47,7 @@ export default function LoginPage() {
       />
       <button
         disabled={isSubmitting}
-        className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+        className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white disabled:bg-camp-light"
       >
         로그인
       </button>
