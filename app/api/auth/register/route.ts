@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { userId, email } = await req.json();
+    const { userId, email, name, userPw, type } = await req.json();
 
     const idVerification = await db.user.findFirst({
       where: {
@@ -32,7 +32,17 @@ export async function POST(req: Request) {
       return NextResponse.json(error, { status: 409 });
     }
 
-    return NextResponse.json('');
+    const user = await db.user.create({
+      data: {
+        name,
+        email,
+        userId,
+        password: userPw,
+        type,
+      },
+    });
+
+    return NextResponse.json(user);
   } catch (e) {
     console.log('AUTH_REGISTER_ERROR', e);
     return new NextResponse('Internal Error', { status: 500 });
