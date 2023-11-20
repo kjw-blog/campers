@@ -5,9 +5,11 @@ import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
 import Input from '@/components/common/input';
+import axios, { isAxiosError } from 'axios';
 
 const Form = z
   .object({
+    name: z.string().min(1, { message: '이름을 입력해 주세요.' }),
     userId: z
       .string()
       .min(1, {
@@ -51,18 +53,47 @@ export const SignupForm = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setError,
   } = useForm<z.infer<typeof Form>>({
     resolver: zodResolver(Form),
   });
 
-  const onSubmit = (data: z.infer<typeof Form>) => {};
+  const onSubmit = async (data: z.infer<typeof Form>) => {
+    try {
+      await axios.post('/api/auth/register', { ...data, type });
+    } catch (e) {
+      if (isAxiosError(e)) {
+        const error = e.response?.data;
+
+        Object.keys(error).forEach((key) => {
+          setError(key as 'email' | 'userId', { message: error[key] });
+        });
+      } else {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <div className="w-[420px] rounded-md border border-zinc-200 p-4 py-10 shadow-md">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col space-y-12"
+        className="flex flex-col space-y-10"
       >
+        <Input
+          type="text"
+          label="이름"
+          placeholder="이름 입력해 주세요."
+          register={register('name')}
+          warning={errors.name?.message}
+        />
+        <Input
+          type="email"
+          label="이메일"
+          placeholder="이메일을 입력해 주세요."
+          register={register('email')}
+          warning={errors.email?.message}
+        />
         <Input
           type="text"
           label="아이디"
@@ -84,13 +115,7 @@ export const SignupForm = () => {
           register={register('userPwCheck')}
           warning={errors.userPwCheck?.message}
         />
-        <Input
-          type="email"
-          label="이메일"
-          placeholder="이메일을 입력해 주세요."
-          register={register('email')}
-          warning={errors.email?.message}
-        />
+
         <button
           disabled={isSubmitting}
           className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"

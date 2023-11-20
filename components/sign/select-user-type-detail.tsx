@@ -24,11 +24,11 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
 
   return (
     <Link
-      href={`/signup?type=${type.toLowerCase()}`}
-      className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition hover:-translate-y-3"
+      href={`/signup?type=${type}`}
+      className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 shadow-md transition hover:-translate-y-3"
     >
       <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy">
-        <Icon className="h-16 w-16 stroke-camp-heavy group-hover:stroke-white" />
+        <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:scale-125 group-hover:stroke-white" />
       </div>
       <div className="flex flex-col items-center justify-center space-y-2 py-2">
         <p className="font-semibold text-camp-heavy">{kr}</p>
