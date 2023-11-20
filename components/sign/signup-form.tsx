@@ -1,7 +1,10 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Input from '../common/input';
+import { Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+
+import Input from '@/components/common/input';
 
 const Form = z
   .object({
@@ -41,6 +44,9 @@ const Form = z
   });
 
 export const SignupForm = () => {
+  const { get } = useSearchParams();
+  const type = get('type');
+
   const {
     register,
     handleSubmit,
@@ -49,9 +55,7 @@ export const SignupForm = () => {
     resolver: zodResolver(Form),
   });
 
-  const onSubmit = (data: z.infer<typeof Form>) => {
-    console.log(data);
-  };
+  const onSubmit = (data: z.infer<typeof Form>) => {};
 
   return (
     <div className="w-[420px] rounded-md border border-zinc-200 p-4 py-10 shadow-md">
@@ -89,9 +93,9 @@ export const SignupForm = () => {
         />
         <button
           disabled={isSubmitting}
-          className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white disabled:bg-camp-light"
+          className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
         >
-          회원가입
+          {isSubmitting ? <Loader2 className="animate-spin" /> : '회원가입'}
         </button>
       </form>
     </div>

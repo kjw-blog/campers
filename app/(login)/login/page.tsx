@@ -3,6 +3,7 @@ import { z } from 'zod';
 import Input from '@/components/common/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -47,9 +48,9 @@ export default function LoginPage() {
       />
       <button
         disabled={isSubmitting}
-        className="w-full rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white disabled:bg-camp-light"
+        className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
       >
-        로그인
+        {isSubmitting ? <Loader2 className="animate-spin" /> : '로그인'}
       </button>
     </form>
   );

@@ -25,7 +25,7 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
   return (
     <Link
       href={`/signup?type=${type.toLowerCase()}`}
-      className="group flex h-60 w-60 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition hover:-translate-y-3"
+      className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition hover:-translate-y-3"
     >
       <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy">
         <Icon className="h-16 w-16 stroke-camp-heavy group-hover:stroke-white" />
