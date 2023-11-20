@@ -7,9 +7,6 @@ export default function LoginLayout({
 }) {
   return (
     <div className="relative flex w-[420px] rounded-sm border border-zinc-200 bg-white p-4 py-10 shadow-md">
-      <h3 className="absolute -top-20 left-0 select-none text-[48px] font-bold text-camp-heavy">
-        Campers
-      </h3>
       {children}
       <div className="absolute -bottom-12 left-0 block w-full space-x-4 text-center text-sm font-semibold ">
         <span className="select-none text-zinc-500">계정이 없으신가요?</span>

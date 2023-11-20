@@ -4,6 +4,11 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" flex h-full items-center justify-center">{children}</div>
+    <div className="relative flex h-full flex-col items-center justify-center space-y-4">
+      <h3 className="select-none text-[48px] font-bold text-camp-heavy">
+        Campers
+      </h3>
+      {children}
+    </div>
   );
 }

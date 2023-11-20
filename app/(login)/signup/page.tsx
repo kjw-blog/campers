@@ -2,6 +2,8 @@
 
 import { useSearchParams } from 'next/navigation';
 
+import { GuestForm } from '@/components/sign/guest-form';
+import { HostForm } from '@/components/sign/host-form';
 import { SelectUserType } from '@/components/sign/select-user-type';
 
 export default function SignupPage() {
@@ -13,7 +15,8 @@ export default function SignupPage() {
   return (
     <>
       {!hasType && <SelectUserType />}
-      {hasType && <div>{type}</div>}
+      {hasType && type === 'guest' && <GuestForm />}
+      {hasType && type === 'host' && <HostForm />}
     </>
   );
 }
