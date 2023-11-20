@@ -14,9 +14,15 @@ const Form = z
         /^(?=.*[a-z])(?=.*\d)[a-z\d]{6,14}$/,
         '소문자, 숫자가 조합된 6~14 글자를 입력해 주세요.',
       ),
-    userPw: z.string().min(1, {
-      message: '비밀번호를 입력해 주세요.',
-    }),
+    userPw: z
+      .string()
+      .min(1, {
+        message: '비밀번호를 입력해 주세요.',
+      })
+      .regex(
+        /^(?=.*[a-z])(?=.*[!@#$%^&*()])(?=.*\d)[a-z\d!@#$%^&*()]{8,20}$/,
+        '소문자, 특수문자, 숫자가 포함된 8~20 글자를 입력해 주세요.',
+      ),
     userPwCheck: z.string().min(1, {
       message: '비밀번호를 다시 입력해 주세요.',
     }),
@@ -34,7 +40,7 @@ const Form = z
     message: '비밀번호가 일치하지 않습니다.',
   });
 
-export const GuestForm = () => {
+export const SignupForm = () => {
   const {
     register,
     handleSubmit,
