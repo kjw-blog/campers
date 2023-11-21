@@ -25,7 +25,8 @@ const handler = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.password || !credentials.userId) return null;
+        if (!credentials?.password || !credentials.userId)
+          throw new Error('아이디, 비밀번호를 입력해 주세요.');
 
         const user = await db.user.findUnique({
           where: {
@@ -33,10 +34,11 @@ const handler = NextAuth({
           },
         });
 
-        if (!user) return null;
+        // if (!user) return null;
+        if (!user) throw new Error('존재하지 않는 아이디입니다.');
 
         if (!(await bcrypt.compare(credentials.password, user.password)))
-          return null;
+          throw new Error('비밀번호가 일치하지 않습니다.');
 
         return user;
       },

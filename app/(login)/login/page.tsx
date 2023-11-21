@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -16,6 +17,8 @@ const LoginForm = z.object({
 });
 
 export default function LoginPage() {
+  const [error, setError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -29,6 +32,11 @@ export default function LoginPage() {
       userId: data.userId,
       password: data.userPw,
       callbackUrl: '/',
+      redirect: false,
+    }).then((res) => {
+      if (res?.error) {
+        setError(res.error);
+      }
     });
   };
 
