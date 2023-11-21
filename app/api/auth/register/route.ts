@@ -1,5 +1,7 @@
-import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
+import * as bcrypt from 'bcrypt';
+
+import { db } from '@/lib/db';
 
 export async function POST(req: Request) {
   try {
@@ -31,7 +33,7 @@ export async function POST(req: Request) {
         name,
         email,
         userId,
-        password: userPw,
+        password: await bcrypt.hash(userPw, 10),
         type,
       },
     });
