@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+
 import { db } from '@/lib/db';
 
 const SESSION_MAX_AGE_THREE_DAYS = 60 * 60 * 24 * 3;
@@ -10,9 +11,27 @@ const handler = NextAuth({
   // prisma client 들어갈곳
   adapter: PrismaAdapter(db),
   providers: [
-    // CredentialsProvider({
-    //   name:''
-    // }),
+    CredentialsProvider({
+      name: 'test2',
+      credentials: {
+        userId: { label: 'Username', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        const user = await db.user.findUnique({
+          where: {
+            userId: credentials?.userId,
+            password: credentials?.password,
+          },
+        });
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
+    }),
   ],
   pages: {
     signIn: '/login',
@@ -24,10 +43,11 @@ const handler = NextAuth({
     updateAge: SESSION_UPDATE_AGE_ONE_DAYS,
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token }) {
       return token;
     },
     async session({ session, token }) {
+      (session as any).token = token;
       return session;
     },
   },

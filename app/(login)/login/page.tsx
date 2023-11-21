@@ -4,6 +4,7 @@ import Input from '@/components/common/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -23,13 +24,17 @@ export default function LoginPage() {
     resolver: zodResolver(LoginForm),
   });
 
-  const onLogin = (data: z.infer<typeof LoginForm>) => {
-    console.log(data);
+  const onValid = async (data: z.infer<typeof LoginForm>) => {
+    await signIn('credentials', {
+      redirect: false,
+      userId: data.userId,
+      password: data.userPw,
+    });
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onLogin)}
+      onSubmit={handleSubmit(onValid)}
       className="flex flex-1 flex-col space-y-12"
     >
       <Input

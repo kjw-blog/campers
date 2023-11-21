@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Input from '@/components/common/input';
 import axios, { isAxiosError } from 'axios';
@@ -47,6 +47,8 @@ const Form = z
 
 export const SignupForm = () => {
   const { get } = useSearchParams();
+  const router = useRouter();
+
   const type = get('type');
 
   const {
@@ -61,6 +63,8 @@ export const SignupForm = () => {
   const onSubmit = async (data: z.infer<typeof Form>) => {
     try {
       await axios.post('/api/auth/register', { ...data, type });
+
+      router.push('/login');
     } catch (e) {
       if (isAxiosError(e)) {
         const error = e.response?.data;
