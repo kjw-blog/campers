@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { UserType } from '@prisma/client';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -11,7 +12,13 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  return NextResponse.redirect(new URL('/customer', request.url));
+  if (pathname === '/') {
+    const type = token.type as UserType;
+
+    return NextResponse.redirect(
+      new URL(`/${type.toLowerCase()}`, request.url),
+    );
+  }
 }
 
 // See "Matching Paths" below to learn more
