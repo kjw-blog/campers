@@ -1,3 +1,13 @@
+'use client';
+
+import { signOut } from 'next-auth/react';
+
 export default function HostPage() {
-  return <>호스트 페이지</>;
+  const onLogout = () => {
+    signOut({
+      callbackUrl: '/',
+    });
+  };
+
+  return <button onClick={onLogout}>로그아웃</button>;
 }
