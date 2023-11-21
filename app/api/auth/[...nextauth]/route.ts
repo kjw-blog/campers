@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import * as bcrypt from 'bcrypt';
 
 import { db } from '@/lib/db';
 
@@ -12,7 +13,7 @@ const handler = NextAuth({
   adapter: PrismaAdapter(db),
   providers: [
     CredentialsProvider({
-      name: 'test2',
+      name: 'login',
       credentials: {
         userId: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
@@ -21,11 +22,14 @@ const handler = NextAuth({
         const user = await db.user.findUnique({
           where: {
             userId: credentials?.userId,
-            password: credentials?.password,
           },
         });
 
-        if (user) {
+        if (
+          user &&
+          credentials?.password &&
+          (await bcrypt.compare(credentials.password, user.password))
+        ) {
           return user;
         } else {
           return null;
@@ -43,7 +47,11 @@ const handler = NextAuth({
     updateAge: SESSION_UPDATE_AGE_ONE_DAYS,
   },
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ user, token }) {
+      if (user) {
+        // token.type = user.type;
+      }
+
       return token;
     },
     async session({ session, token }) {

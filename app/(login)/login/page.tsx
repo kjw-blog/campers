@@ -26,9 +26,9 @@ export default function LoginPage() {
 
   const onValid = async (data: z.infer<typeof LoginForm>) => {
     await signIn('credentials', {
-      redirect: false,
       userId: data.userId,
       password: data.userPw,
+      callbackUrl: '/',
     });
   };
 
