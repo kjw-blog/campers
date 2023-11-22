@@ -1,3 +1,3 @@
 export const NavigationSidebar = () => {
-  return <nav className="bg-orange-heavy h-full w-full"></nav>;
+  return <nav className="h-full w-full bg-orange-heavy"></nav>;
 };

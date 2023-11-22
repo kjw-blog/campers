@@ -24,7 +24,7 @@ module.exports = {
         camp: {
           heavy: '#42B983',
           middle2: '#73D13D',
-          middle: '#7BD545',
+          middle: '#79CF9F',
           light: '#CFF1B9',
         },
         border: 'hsl(var(--border))',
