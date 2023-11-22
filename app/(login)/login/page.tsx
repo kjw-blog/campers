@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useModalStore } from '@/store/use-modal-store';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -19,6 +20,7 @@ const LoginForm = z.object({
 
 export default function LoginPage() {
   const { openModal } = useModalStore();
+  const router = useRouter();
 
   const {
     register,
@@ -37,6 +39,8 @@ export default function LoginPage() {
     }).then((res) => {
       if (res?.error) {
         openModal('error-modal', { text: res.error });
+      } else {
+        router.push('/');
       }
     });
   };

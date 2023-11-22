@@ -47,16 +47,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  userId        String    @unique
+  id            String       @id @default(cuid())
+  userId        String       @unique
   name          String
-  email         String    @unique
+  email         String       @unique
   password      String
   emailVerified DateTime?
-  image         String?   @db.Text
-  type          UserType  @default(GUEST)
+  image         String?      @db.Text
+  type          UserType     @default(GUEST)
   accounts      Account[]
   sessions      Session[]
+  campground    Campground[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -68,4 +69,32 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Campground {
+  id      String @id @default(cuid())
+  name    String
+  address String
+
+  call String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  image CampGroundImage[]
+
+  @@index([userId])
+}
+
+model CampGroundImage {
+  id       String @id @default(cuid())
+  imageUrl String @db.Text
+
+  campId String
+  camp   Campground @relation(fields: [campId], references: [id], onDelete: Cascade)
+
+  @@index([campId])
 }

@@ -14,6 +14,9 @@ export async function middleware(request: NextRequest) {
     }
   } else {
     const type = token.type as UserType;
+    if (pathname === '/login' || pathname === '/signup') {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
 
     if (pathname === '/') {
       return NextResponse.redirect(

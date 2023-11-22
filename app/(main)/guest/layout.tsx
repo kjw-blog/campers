@@ -1,4 +1,4 @@
-import { NavigationSidebar } from '@/components/customer/navigation-sidebar';
+import { NavigationSidebar } from '@/components/guest/navigation-sidebar';
 
 export default function CustomerLayout({
   children,
