@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { User } from 'lucide-react';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
@@ -21,6 +21,10 @@ export const UserProfile = ({ src }: UserProfileProps) => {
     </div>
   );
 
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <div className="relative">
       <Avatar
@@ -29,7 +33,7 @@ export const UserProfile = ({ src }: UserProfileProps) => {
       >
         {avatar}
       </Avatar>
-      {isOpen && <UserProfileSetting />}
+      {isOpen && <UserProfileSetting onClose={handleClose} />}
     </div>
   );
 };
