@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { useModalStore } from '@/store/use-modal-store';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -17,7 +18,7 @@ const LoginForm = z.object({
 });
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null);
+  const { openModal } = useModalStore();
 
   const {
     register,
@@ -35,7 +36,7 @@ export default function LoginPage() {
       redirect: false,
     }).then((res) => {
       if (res?.error) {
-        setError(res.error);
+        openModal('error-modal', { text: res.error });
       }
     });
   };
