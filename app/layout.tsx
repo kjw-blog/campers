@@ -25,7 +25,6 @@ export default async function RootLayout({
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
-          disableTransitionOnChange
         >
           <ModalProvider />
           <AuthProvider>{children}</AuthProvider>
