@@ -4,6 +4,7 @@ import './globals.css';
 
 import AuthProvider from '@/components/providers/auth-provider';
 import { ModalProvider } from '@/components/providers/modal-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const font = Open_Sans({ subsets: ['latin'] });
 
@@ -20,8 +21,15 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body className={font.className}>
-        <ModalProvider />
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <ModalProvider />
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

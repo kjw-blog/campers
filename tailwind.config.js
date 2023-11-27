@@ -17,9 +17,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        orange: {
-          heavy: '#FF9B50',
-          light: '#FECDA6',
+        dark: {
+          100: '#313338',
+          200: '#1E1F22',
+          300: '#2B2D31',
         },
         camp: {
           heavy: '#42B983',

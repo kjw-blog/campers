@@ -1,5 +1,6 @@
-import { Plus, Sun } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { UserProfile } from '../user-profile';
+import { ThemeButton } from '../common/theme-button';
 
 export const NavigationSidebar = () => {
   return (
@@ -10,7 +11,7 @@ export const NavigationSidebar = () => {
       <div className="my-2 h-[2px] w-[48px] bg-zinc-500" />
       <div className="flex-1"></div>
       <div className="mt-auto flex flex-col items-center justify-center space-y-4">
-        <Sun />
+        <ThemeButton />
         <UserProfile />
       </div>
     </div>
