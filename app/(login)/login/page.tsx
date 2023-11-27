@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
 import { useModalStore } from '@/store/use-modal-store';
 import { useRouter } from 'next/navigation';
 
@@ -66,7 +65,7 @@ export default function LoginPage() {
       />
       <button
         disabled={isSubmitting}
-        className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+        className="dark:bg-dark-300 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
       >
         {isSubmitting ? <Loader2 className="animate-spin" /> : '로그인'}
       </button>

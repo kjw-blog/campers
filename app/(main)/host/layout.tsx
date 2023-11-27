@@ -10,7 +10,9 @@ export default function HostLayout({
       <div className="fixed inset-y-0 z-30 hidden h-full w-[72px] flex-col md:flex">
         <NavigationSidebar />
       </div>
-      <main className="flex-1 dark:bg-[#313338] md:pl-[72px]">{children}</main>
+      <main className="dark:bg-dark-100 flex-1 transition md:pl-[72px]">
+        {children}
+      </main>
     </div>
   );
 }
