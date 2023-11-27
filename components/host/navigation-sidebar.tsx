@@ -1,4 +1,4 @@
-import { Plus, Sun, User } from 'lucide-react';
+import { Plus, Sun } from 'lucide-react';
 import { UserProfile } from '../user-profile';
 
 export const NavigationSidebar = () => {

@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { User } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { UserProfileSetting } from './user-profile-setting';
@@ -33,7 +34,9 @@ export const UserProfile = ({ src }: UserProfileProps) => {
       >
         {avatar}
       </Avatar>
-      {isOpen && <UserProfileSetting onClose={handleClose} />}
+      <AnimatePresence>
+        {isOpen && <UserProfileSetting onClose={handleClose} />}
+      </AnimatePresence>
     </div>
   );
 };
