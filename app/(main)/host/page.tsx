@@ -4,7 +4,5 @@ import { db } from '@/lib/db';
 export default async function HostPage() {
   const user = await currentUser();
 
-  console.log(user);
-
   return <></>;
 }
