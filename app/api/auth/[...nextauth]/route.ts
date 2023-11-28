@@ -1,20 +1,20 @@
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import * as bcrypt from 'bcrypt';
-import { User, UserType } from '@prisma/client';
+import { User } from '@prisma/client';
 import { AdapterUser } from 'next-auth/adapters';
 
 import { db } from '@/lib/db';
 
 interface CustomUser extends AdapterUser {
-  type: UserType;
+  user: User;
 }
 
 const SESSION_MAX_AGE_THREE_DAYS = 60 * 60 * 24 * 3;
 const SESSION_UPDATE_AGE_ONE_DAYS = 60 * 60 * 24;
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   // prisma client 들어갈곳
   adapter: PrismaAdapter(db),
   providers: [
@@ -55,22 +55,18 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      const customUser = user as CustomUser;
-
-      if (customUser) {
-        token.type = customUser.type;
-      }
-
-      return token;
+      return { ...token, ...user };
     },
     async session({ session, token }) {
-      if (token) {
-        session.user = token as User;
-      }
+      const { password, ...tokenData } = token;
 
-      return session;
+      session.user = tokenData as User;
+
+      return { ...session, ...tokenData };
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
