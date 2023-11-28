@@ -23,7 +23,7 @@ const Input = (
         autoComplete="off"
         {...register}
       />
-      <label className="dark:bg-dark-300 absolute left-[10px] top-4 rounded-md bg-white px-1 text-sm text-zinc-500 opacity-0 transition peer-valid:-translate-y-[26px] peer-valid:text-camp-heavy peer-valid:opacity-100 peer-focus:-translate-y-[26px] peer-focus:text-camp-heavy peer-focus:opacity-100 dark:peer-valid:text-white dark:peer-focus:text-white">
+      <label className="dark:bg-dark-400 absolute left-[10px] top-4 rounded-md bg-white px-1 text-sm text-zinc-500 opacity-0 transition peer-valid:-translate-y-[26px] peer-valid:text-camp-heavy peer-valid:opacity-100 peer-focus:-translate-y-[26px] peer-focus:text-camp-heavy peer-focus:opacity-100 dark:peer-valid:text-white dark:peer-focus:text-white">
         {label}
       </label>
       <p className="absolute -bottom-6 text-xs font-bold text-rose-600">

@@ -27,10 +27,10 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
       href={`/signup?type=${type}`}
       className="dark:hover:shadow-dark_md group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl"
     >
-      <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy dark:border-zinc-400 dark:bg-dark-200">
+      <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy dark:border-zinc-400 dark:bg-dark-300">
         <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:scale-125 group-hover:stroke-white" />
       </div>
-      <div className="flex flex-col items-center justify-center space-y-2 py-2 dark:bg-dark-100">
+      <div className="flex flex-col items-center justify-center space-y-2 py-2 dark:bg-dark-200">
         <p className="font-semibold text-camp-heavy">{kr}</p>
         <p className="text-xs text-zinc-700 dark:text-zinc-400">
           {description}

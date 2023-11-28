@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type ModalType = 'error-modal' | null;
+type ModalType = 'error' | null;
 
 type DataType = {
   text?: string;

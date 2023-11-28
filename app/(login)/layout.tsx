@@ -6,7 +6,7 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="dark:bg-dark-300 relative flex h-full flex-col items-center justify-center space-y-4 transition">
+    <div className="dark:bg-dark-400 relative flex h-full flex-col items-center justify-center space-y-4 transition">
       <h3 className="select-none text-[48px] font-bold text-camp-heavy dark:text-white">
         Campers
       </h3>

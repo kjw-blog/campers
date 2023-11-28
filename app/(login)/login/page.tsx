@@ -65,7 +65,7 @@ export default function LoginPage() {
       />
       <button
         disabled={isSubmitting}
-        className="dark:bg-dark-300 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+        className="dark:bg-dark-400 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
       >
         {isSubmitting ? <Loader2 className="animate-spin" /> : '로그인'}
       </button>

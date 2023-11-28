@@ -1,17 +1,18 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useModalStore } from '@/store/use-modal-store';
-import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 
 export const ErrorModal = () => {
   const { isOpen, type, data, closeModal } = useModalStore();
 
-  const open = isOpen && type === 'error-modal';
+  const open = isOpen && type === 'error';
 
   return (
     <Dialog open={open} onOpenChange={closeModal}>
