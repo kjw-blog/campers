@@ -25,7 +25,7 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
   return (
     <Link
       href={`/signup?type=${type}`}
-      className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl"
+      className="dark:hover:shadow-dark_md group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl"
     >
       <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy dark:border-zinc-400 dark:bg-dark-200">
         <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:scale-125 group-hover:stroke-white" />

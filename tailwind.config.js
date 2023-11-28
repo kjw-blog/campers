@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        dark_md: '0px 15px 15px rgba(255, 255, 255, 0.3)',
+      },
       colors: {
         dark: {
           100: '#313338',
