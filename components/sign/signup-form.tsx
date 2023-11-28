@@ -79,7 +79,7 @@ export const SignupForm = () => {
   };
 
   return (
-    <div className="dark:bg-dark-200 w-[420px] rounded-md border border-zinc-200 p-4 py-10 shadow-md">
+    <div className="w-[420px] rounded-md border border-zinc-200 p-4 py-10 shadow-md dark:bg-dark-200">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-10"
@@ -122,7 +122,7 @@ export const SignupForm = () => {
 
         <button
           disabled={isSubmitting}
-          className="dark:bg-dark-300 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+          className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white dark:bg-dark-300"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : '회원가입'}
         </button>

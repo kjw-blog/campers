@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import * as bcrypt from 'bcrypt';
-import { UserType } from '@prisma/client';
+import { User, UserType } from '@prisma/client';
 import { AdapterUser } from 'next-auth/adapters';
 
 import { db } from '@/lib/db';
@@ -64,7 +64,11 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      return { ...session, ...token };
+      if (token) {
+        session.user = token as User;
+      }
+
+      return session;
     },
   },
 });
