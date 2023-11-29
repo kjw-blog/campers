@@ -27,7 +27,7 @@ export const InitialCampModal = () => {
             캠핑장 추가
           </DialogTitle>
         </DialogHeader>
-        <form className="p-3">
+        <form className="px-3">
           <FileUpload />
         </form>
       </DialogContent>

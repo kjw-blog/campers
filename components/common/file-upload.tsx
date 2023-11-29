@@ -5,13 +5,15 @@ import '@uploadthing/react/styles.css';
 export const FileUpload = () => {
   return (
     <UploadDropzone
-      className="group"
+      className="group mb-3 mt-0"
       appearance={{
         label: 'text-zinc-500 transition group-hover:text-camp-heavy',
         uploadIcon: 'group-hover:text-camp-heavy transition',
         allowedContent: 'group-hover:text-camp-heavy transition',
         button: ({ ready, isUploading }) => {
-          return `${ready}`;
+          return `custom-button ${
+            ready ? 'custom-button-ready' : 'custom-button-not-ready'
+          } ${isUploading ? 'custom-button-uploading' : ''}`;
         },
       }}
       endpoint="campImage"

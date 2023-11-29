@@ -80,3 +80,33 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+/* 버튼에 적용 */
+.custom-button {
+  font-size: 0.9rem;
+  color: rgb(0 0 0 / 1);
+  background-color: #42b983 !important;
+}
+
+/* 업로드시 버튼에 적용 */
+.custom-button-uploading {
+  background-color: #79cf9f !important;
+  color: rgb(0 0 0 / 0.5);
+  cursor: not-allowed;
+}
+
+.custom-button-uploading::after {
+  background-color: #42b983 !important;
+}
+
+/* 준비되면 버튼에 적용 */
+.custom-button-ready {
+  color: #ecfdf5;
+}
+
+/* 준비되지 않은 경우 버튼에 적용 */
+.custom-button-not-ready {
+  background-color: rgb(239 68 68 / 0.5);
+  color: rgb(0 0 0 / 0.5);
+  cursor: not-allowed;
+}
