@@ -37,7 +37,7 @@ export default function LoginPage() {
       redirect: false,
     }).then((res) => {
       if (res?.error) {
-        openModal('error-modal', { text: res.error });
+        openModal('error', { text: res.error });
       } else {
         router.push('/');
       }
@@ -65,7 +65,7 @@ export default function LoginPage() {
       />
       <button
         disabled={isSubmitting}
-        className="dark:bg-dark-400 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+        className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white dark:bg-dark-400"
       >
         {isSubmitting ? <Loader2 className="animate-spin" /> : '로그인'}
       </button>

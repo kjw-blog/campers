@@ -122,7 +122,7 @@ export const SignupForm = () => {
 
         <button
           disabled={isSubmitting}
-          className="dark:bg-dark-400 flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white"
+          className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white dark:bg-dark-400"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : '회원가입'}
         </button>
