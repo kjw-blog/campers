@@ -5,12 +5,10 @@ import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
+import { FileUpload } from '../common/file-upload';
 
 export const InitialCampModal = () => {
   const [onMount, setOnMount] = useState(false);
@@ -28,10 +26,10 @@ export const InitialCampModal = () => {
           <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
             캠핑장 추가
           </DialogTitle>
-          <DialogDescription className="p-3 text-xs text-zinc-600">
-            테스트
-          </DialogDescription>
         </DialogHeader>
+        <form className="p-3">
+          <FileUpload />
+        </form>
       </DialogContent>
     </Dialog>
   );
