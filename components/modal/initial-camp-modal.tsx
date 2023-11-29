@@ -17,15 +17,15 @@ export const InitialCampModal = () => {
 
   useEffect(() => {
     setOnMount(true);
-  });
+  }, []);
 
-  if (!onMount) return <></>;
+  if (!onMount) return null;
 
   return (
     <Dialog open={true}>
-      <DialogContent className="w-auto min-w-[320px] overflow-hidden p-0 dark:bg-dark-200">
+      <DialogContent className="w-auto overflow-hidden p-0 dark:bg-dark-100">
         <DialogHeader>
-          <DialogTitle className="bg-camp-heavy py-3 pl-4 text-left text-sm font-bold text-white">
+          <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
             캠핑장 추가
           </DialogTitle>
           <DialogDescription className="p-3 text-xs text-zinc-600">
