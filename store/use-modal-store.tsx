@@ -4,6 +4,7 @@ type ModalType = 'error' | null;
 
 type DataType = {
   text?: string;
+  title?: string;
 };
 
 type State = {

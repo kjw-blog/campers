@@ -14,6 +14,7 @@ import { FileUpload } from '@/components/common/file-upload';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
+import { useModalStore } from '@/store/use-modal-store';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -28,6 +29,8 @@ export const InitialCampModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [onMount, setOnMount] = useState(false);
   const [formStep, setFormStep] = useState(0);
+
+  const { openModal } = useModalStore();
 
   const { control, watch } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
@@ -50,7 +53,11 @@ export const InitialCampModal = () => {
       if (formStep >= 1) return;
 
       if (formStep === 0 && !watch('thumbnail')) {
-        alert('썸네일을 등록해 주세요.');
+        // alert('썸네일을 등록해 주세요.');
+        openModal('error', {
+          text: '썸네일을 등록해 주세요.',
+          title: '입력 요청',
+        });
         return;
       }
 
@@ -105,7 +112,7 @@ export const InitialCampModal = () => {
               <FileUpload value={field.value} onChange={field.onChange} />
             )}
           />
-          <div className="h-full w-[480px] bg-camp-heavy">주소/캠핑장명</div>
+          <div className="h-full w-[480px] ">주소/캠핑장명</div>
         </form>
         <div className="flex w-[500px] max-w-[calc(90vw+1.5rem)] items-center !justify-between px-3 pb-3">
           <button
