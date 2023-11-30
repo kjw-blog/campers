@@ -67,6 +67,25 @@ export const InitialCampModal = () => {
     }
   };
 
+  const prevButtonHandler = () => {
+    const form = formRef.current;
+
+    if (form) {
+      if (formStep === 0) return;
+
+      const formWidth = form.clientWidth;
+
+      const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
+      const transformNumber = -parseInt(transform);
+
+      const move = transformNumber + formWidth;
+
+      setFormStep((prevStep) => prevStep - 1);
+
+      form.style.transform = `translateX(${move}px)`;
+    }
+  };
+
   return (
     <Dialog open={true}>
       <DialogContent className="w-auto overflow-hidden rounded-md p-0 dark:bg-dark-100">
@@ -86,7 +105,7 @@ export const InitialCampModal = () => {
         </form>
         <DialogFooter className="flex h-12 items-center !justify-between px-3 pb-3">
           <button
-            onClick={nextButtonHandler}
+            onClick={prevButtonHandler}
             disabled={formStep === 0}
             className="rounded-md bg-camp-heavy px-4 py-2 duration-300 disabled:opacity-0"
           >
