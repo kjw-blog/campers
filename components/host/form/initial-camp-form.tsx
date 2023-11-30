@@ -100,9 +100,10 @@ export const InitialCampForm = () => {
         <div className="flex w-[90vw] flex-col space-y-4 sm:w-[476px]">
           <div className="flex w-full justify-between space-x-5">
             <input
+              disabled
               type="text"
               placeholder="주소"
-              className="flex-1 rounded-sm border border-zinc-300 px-[10px] py-4 text-sm text-zinc-500 outline-none"
+              className="flex-1 rounded-sm border border-zinc-300 px-[10px] py-4 text-sm text-zinc-500 outline-none dark:bg-[#3b3b3b]"
             />
             <button
               type="button"
