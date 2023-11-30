@@ -88,13 +88,13 @@ export const InitialCampModal = () => {
 
   return (
     <Dialog open={true}>
-      <DialogContent className="w-auto overflow-hidden rounded-md p-0 dark:bg-dark-100">
+      <DialogContent className="w-[90%] overflow-hidden rounded-md p-0 dark:bg-dark-100 sm:w-[500px]">
         <DialogHeader>
           <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
             캠핑장 추가
           </DialogTitle>
         </DialogHeader>
-        <form ref={formRef} className="px-3 transition duration-1000">
+        <form ref={formRef} className="w-full px-3 transition duration-1000">
           <Controller
             name="thumbnail"
             control={control}
@@ -103,7 +103,7 @@ export const InitialCampModal = () => {
             )}
           />
         </form>
-        <DialogFooter className="flex h-12 items-center !justify-between px-3 pb-3">
+        <div className="flex items-center !justify-between px-3 pb-3">
           <button
             onClick={prevButtonHandler}
             disabled={formStep === 0}
@@ -131,7 +131,7 @@ export const InitialCampModal = () => {
           >
             다음
           </button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );
