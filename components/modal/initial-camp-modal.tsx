@@ -54,7 +54,7 @@ export const InitialCampModal = () => {
         return;
       }
 
-      const formWidth = form.clientWidth;
+      const formWidth = form.clientWidth / 2 - 6;
 
       const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
       const transformNumber = -parseInt(transform);
@@ -73,7 +73,7 @@ export const InitialCampModal = () => {
     if (form) {
       if (formStep === 0) return;
 
-      const formWidth = form.clientWidth;
+      const formWidth = form.clientWidth / 2 - 6;
 
       const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
       const transformNumber = -parseInt(transform);
@@ -88,13 +88,16 @@ export const InitialCampModal = () => {
 
   return (
     <Dialog open={true}>
-      <DialogContent className="w-[90%] overflow-hidden rounded-md p-0 dark:bg-dark-100 sm:w-[500px]">
+      <DialogContent className="w-[500px] max-w-[calc(90vw+1.5rem)] overflow-hidden rounded-md p-0 dark:bg-dark-100">
         <DialogHeader>
           <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
             캠핑장 추가
           </DialogTitle>
         </DialogHeader>
-        <form ref={formRef} className="w-full px-3 transition duration-1000">
+        <form
+          ref={formRef}
+          className="flex w-full space-x-3 px-3 transition duration-1000"
+        >
           <Controller
             name="thumbnail"
             control={control}
@@ -102,8 +105,9 @@ export const InitialCampModal = () => {
               <FileUpload value={field.value} onChange={field.onChange} />
             )}
           />
+          <div className="h-full w-[480px] bg-camp-heavy">주소/캠핑장명</div>
         </form>
-        <div className="flex items-center !justify-between px-3 pb-3">
+        <div className="flex w-[500px] max-w-[calc(90vw+1.5rem)] items-center !justify-between px-3 pb-3">
           <button
             onClick={prevButtonHandler}
             disabled={formStep === 0}

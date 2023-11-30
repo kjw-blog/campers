@@ -16,7 +16,7 @@ export const FileUpload = ({ value, onChange }: FileUploadProps) => {
     if (type === 'pdf') return <></>;
     if (type !== 'pdf') {
       return (
-        <div className="relative aspect-video w-full">
+        <div className="relative aspect-video w-[90vw] sm:w-[476px]">
           <Image
             src={value}
             fill
@@ -26,7 +26,7 @@ export const FileUpload = ({ value, onChange }: FileUploadProps) => {
           />
           <button
             onClick={() => onChange('')}
-            className="absolute -right-1 -top-1 rounded-full bg-rose-500 p-1 shadow-md"
+            className="absolute -top-1 right-0 rounded-full bg-rose-500 p-1 shadow-md"
           >
             <X className="h-4 w-4 stroke-white" />
           </button>
@@ -37,7 +37,7 @@ export const FileUpload = ({ value, onChange }: FileUploadProps) => {
 
   return (
     <UploadDropzone
-      className="group mx-auto mt-0 aspect-video w-full"
+      className="group mt-0 aspect-video w-[90vw] sm:w-[476px]"
       appearance={{
         label: 'text-zinc-500 transition group-hover:text-camp-heavy',
         uploadIcon: 'group-hover:text-camp-heavy transition',
