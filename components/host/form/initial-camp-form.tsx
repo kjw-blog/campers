@@ -106,7 +106,7 @@ export const InitialCampForm = () => {
             />
             <button
               type="button"
-              className="rounded-md bg-camp-heavy px-4 text-sm"
+              className="rounded-md bg-camp-heavy px-4 text-sm font-bold text-white"
             >
               주소검색
             </button>
@@ -128,7 +128,7 @@ export const InitialCampForm = () => {
         <button
           onClick={prevButtonHandler}
           disabled={formStep === 0}
-          className="rounded-md bg-camp-heavy px-4 py-2 duration-300 disabled:opacity-0"
+          className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white duration-300 disabled:opacity-0"
         >
           이전
         </button>
@@ -148,7 +148,7 @@ export const InitialCampForm = () => {
         </div>
         <button
           onClick={nextButtonHandler}
-          className="rounded-md bg-camp-heavy px-4 py-2"
+          className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
         >
           다음
         </button>
