@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
 import { FileUpload } from '@/components/common/file-upload';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { cn } from '@/lib/utils';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -23,9 +25,11 @@ const CampForm = z.object({
 });
 
 export const InitialCampModal = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [onMount, setOnMount] = useState(false);
+  const [formStep, setFormStep] = useState(0);
 
-  const { control } = useForm<z.infer<typeof CampForm>>({
+  const { control, watch } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
     defaultValues: {
       thumbnail: '',
@@ -39,6 +43,30 @@ export const InitialCampModal = () => {
 
   if (!onMount) return null;
 
+  const nextButtonHandler = () => {
+    const form = formRef.current;
+
+    if (form) {
+      if (formStep >= 1) return;
+
+      if (formStep === 0 && !watch('thumbnail')) {
+        alert('썸네일을 등록해 주세요.');
+        return;
+      }
+
+      const formWidth = form.clientWidth;
+
+      const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
+      const transformNumber = -parseInt(transform);
+
+      const move = transformNumber - formWidth;
+
+      setFormStep((prevStep) => prevStep + 1);
+
+      form.style.transform = `translateX(${move}px)`;
+    }
+  };
+
   return (
     <Dialog open={true}>
       <DialogContent className="w-auto overflow-hidden rounded-md p-0 dark:bg-dark-100">
@@ -47,7 +75,7 @@ export const InitialCampModal = () => {
             캠핑장 추가
           </DialogTitle>
         </DialogHeader>
-        <form className="px-3 pb-3">
+        <form ref={formRef} className="px-3 transition duration-1000">
           <Controller
             name="thumbnail"
             control={control}
@@ -56,6 +84,35 @@ export const InitialCampModal = () => {
             )}
           />
         </form>
+        <DialogFooter className="flex h-12 items-center !justify-between px-3 pb-3">
+          <button
+            onClick={nextButtonHandler}
+            disabled={formStep === 0}
+            className="rounded-md bg-camp-heavy px-4 py-2 duration-300 disabled:opacity-0"
+          >
+            이전
+          </button>
+          <div className="flex space-x-1">
+            <div
+              className={cn(
+                'h-2 w-2 rounded-full duration-1000',
+                formStep === 0 ? 'scale-125 bg-camp-heavy' : 'bg-camp-light',
+              )}
+            />
+            <div
+              className={cn(
+                'h-2 w-2 rounded-full duration-1000',
+                formStep === 1 ? 'scale-125 bg-camp-heavy' : 'bg-camp-light',
+              )}
+            />
+          </div>
+          <button
+            onClick={nextButtonHandler}
+            className="rounded-md bg-camp-heavy px-4 py-2"
+          >
+            다음
+          </button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
