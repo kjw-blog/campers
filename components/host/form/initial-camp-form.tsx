@@ -6,6 +6,7 @@ import { useModalStore } from '@/store/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
+import Input from '@/components/common/input';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -14,6 +15,7 @@ const CampForm = z.object({
   name: z.string().min(1, {
     message: '캠핑장 이름을 입력해 주세요.',
   }),
+  detailAddress: z.string(),
 });
 
 export const InitialCampForm = () => {
@@ -22,11 +24,17 @@ export const InitialCampForm = () => {
 
   const { openModal } = useModalStore();
 
-  const { control, watch } = useForm<z.infer<typeof CampForm>>({
+  const {
+    control,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
     defaultValues: {
       thumbnail: '',
       name: '',
+      detailAddress: '',
     },
   });
 
@@ -80,7 +88,7 @@ export const InitialCampForm = () => {
     <>
       <form
         ref={formRef}
-        className="flex w-full space-x-3 px-3 transition duration-1000"
+        className="flex w-full items-center space-x-3 px-3 transition duration-1000"
       >
         <Controller
           name="thumbnail"
@@ -89,7 +97,32 @@ export const InitialCampForm = () => {
             <FileUpload value={field.value} onChange={field.onChange} />
           )}
         />
-        <div className="h-full w-[480px] ">주소/캠핑장명</div>
+        <div className="flex w-[90vw] flex-col space-y-4 sm:w-[476px]">
+          <div className="flex w-full justify-between space-x-5">
+            <input
+              type="text"
+              placeholder="주소"
+              className="flex-1 rounded-sm border border-zinc-300 px-[10px] py-4 text-sm text-zinc-500 outline-none"
+            />
+            <button
+              type="button"
+              className="rounded-md bg-camp-heavy px-4 text-sm"
+            >
+              주소검색
+            </button>
+          </div>
+          <Input
+            label="상세주소"
+            register={register('detailAddress')}
+            placeholder="상세주소를 입력해 주세요."
+          />
+          <Input
+            label="캠핑장 이름"
+            register={register('name')}
+            placeholder="캠핑장 이름을 입력해 주세요."
+            warning={errors.name?.message}
+          />
+        </div>
       </form>
       <div className="flex w-[500px] max-w-[calc(90vw+1.5rem)] items-center !justify-between px-3 pb-3">
         <button
