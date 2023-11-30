@@ -41,7 +41,7 @@ export const InitialCampModal = () => {
 
   return (
     <Dialog open={true}>
-      <DialogContent className="w-auto overflow-hidden p-0 dark:bg-dark-100">
+      <DialogContent className="w-auto overflow-hidden rounded-md p-0 dark:bg-dark-100">
         <DialogHeader>
           <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
             캠핑장 추가
