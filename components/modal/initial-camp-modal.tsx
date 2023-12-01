@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { InitialCampForm } from '../host/form/initial-camp-form';
-import { AddressModal } from './address-modal';
+import { InitialCampForm } from '@/components/host/form/initial-camp-form';
 
 export const InitialCampModal = () => {
   const [onMount, setOnMount] = useState(false);
@@ -22,16 +15,16 @@ export const InitialCampModal = () => {
 
   return (
     <>
-      <Dialog open={true}>
-        <DialogContent className="w-[500px] max-w-[calc(90vw+1.5rem)] overflow-hidden rounded-md p-0 dark:bg-dark-200">
-          <DialogHeader>
-            <DialogTitle className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
-              캠핑장 추가
-            </DialogTitle>
-          </DialogHeader>
-          <InitialCampForm />
-        </DialogContent>
-      </Dialog>
+      <div className="fixed left-0 right-0 z-30 h-[100vh] w-[100vw] backdrop-blur-sm " />
+      <dialog
+        open
+        className="fixed left-1/2 top-1/2 z-40 max-w-[calc(90vw+1.5rem)] -translate-x-[50%] -translate-y-[50%] space-y-3 overflow-hidden rounded-md border border-zinc-500 p-0 dark:bg-dark-200"
+      >
+        <header className="bg-camp-heavy px-4 py-3 text-left text-sm font-bold text-white">
+          캠핑장 추가
+        </header>
+        <InitialCampForm />
+      </dialog>
     </>
   );
 };

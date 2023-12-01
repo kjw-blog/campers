@@ -23,6 +23,7 @@ const CampForm = z.object({
 
 export const InitialCampForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const [formStep, setFormStep] = useState(0);
   const [onAddressModal, setOnAddressModal] = useState(false);
@@ -53,19 +54,20 @@ export const InitialCampForm = () => {
 
   const moveButtonHandler = (type: 'prev' | 'next') => {
     const form = formRef.current;
+    const div = divRef.current;
 
-    if (form) {
+    if (form && div) {
       if (type === 'prev' && formStep === 0) return;
       if (type === 'next' && formStep === 1) return;
 
       const step = type === 'prev' ? -1 : 1;
 
-      const formWidth = (form.clientWidth / 2 - 6) * step * -1;
+      const contentWidth = (div.clientWidth + 12) * step * -1;
 
       const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
       const transformNumber = -parseInt(transform);
 
-      const move = transformNumber + formWidth;
+      const move = transformNumber + contentWidth;
 
       setFormStep((prevStep) => prevStep + step);
 
@@ -74,10 +76,10 @@ export const InitialCampForm = () => {
   };
 
   return (
-    <>
+    <div className="w-[500px] space-y-3">
       <form
         ref={formRef}
-        className="flex w-full items-center space-x-3 px-3 transition duration-1000"
+        className="flex items-center space-x-3 px-3 transition duration-1000"
       >
         <Controller
           name="thumbnail"
@@ -86,7 +88,10 @@ export const InitialCampForm = () => {
             <FileUpload value={field.value} onChange={field.onChange} />
           )}
         />
-        <div className="flex w-[90vw] flex-col space-y-4 sm:w-[476px]">
+        <div
+          ref={divRef}
+          className="flex shrink-0 grow-0 basis-[90vw] flex-col space-y-4 sm:basis-[476px]"
+        >
           <div className="flex w-full justify-between space-x-5">
             <input
               disabled
@@ -147,6 +152,6 @@ export const InitialCampForm = () => {
       <AnimatePresence>
         {onAddressModal && <AddressModal onClose={closeAddressModal} />}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
