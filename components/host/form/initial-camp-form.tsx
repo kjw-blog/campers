@@ -38,47 +38,23 @@ export const InitialCampForm = () => {
     },
   });
 
-  const nextButtonHandler = () => {
+  const moveButtonHandler = (type: 'prev' | 'next') => {
     const form = formRef.current;
 
     if (form) {
-      if (formStep >= 1) return;
+      if (type === 'prev' && formStep === 0) return;
+      if (type === 'next' && formStep === 1) return;
 
-      if (formStep === 0 && !watch('thumbnail')) {
-        openModal('error', {
-          text: '썸네일을 등록해 주세요.',
-          title: '입력 요청',
-        });
-        return;
-      }
+      const step = type === 'prev' ? -1 : 1;
 
-      const formWidth = form.clientWidth / 2 - 6;
-
-      const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
-      const transformNumber = -parseInt(transform);
-
-      const move = transformNumber - formWidth;
-
-      setFormStep((prevStep) => prevStep + 1);
-
-      form.style.transform = `translateX(${move}px)`;
-    }
-  };
-
-  const prevButtonHandler = () => {
-    const form = formRef.current;
-
-    if (form) {
-      if (formStep === 0) return;
-
-      const formWidth = form.clientWidth / 2 - 6;
+      const formWidth = (form.clientWidth / 2 - 6) * step * -1;
 
       const transform = form.style.transform.match(/\d+/g)?.[0] || '0';
       const transformNumber = -parseInt(transform);
 
       const move = transformNumber + formWidth;
 
-      setFormStep((prevStep) => prevStep - 1);
+      setFormStep((prevStep) => prevStep + step);
 
       form.style.transform = `translateX(${move}px)`;
     }
@@ -127,7 +103,7 @@ export const InitialCampForm = () => {
       </form>
       <div className="flex w-[500px] max-w-[calc(90vw+1.5rem)] items-center !justify-between px-3 pb-3">
         <button
-          onClick={prevButtonHandler}
+          onClick={() => moveButtonHandler('prev')}
           disabled={formStep === 0}
           className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white duration-300 disabled:opacity-0"
         >
@@ -148,7 +124,7 @@ export const InitialCampForm = () => {
           />
         </div>
         <button
-          onClick={nextButtonHandler}
+          onClick={() => moveButtonHandler('next')}
           className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
         >
           다음
