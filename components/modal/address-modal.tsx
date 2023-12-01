@@ -22,7 +22,7 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
   const transformHalf = useTransform(() => '-50%').get();
 
   useEffect(() => {
-    const portal = document.getElementById('portal');
+    const portal = document.getElementById('address-portal');
 
     setPortalElement(portal);
   }, []);
@@ -34,10 +34,11 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
       {createPortal(<BackDrop onClose={onClose} />, portalElement)}
       {createPortal(
         <motion.div
+          layout
           variants={{}}
           initial={{
             opacity: 0,
-            translateY: -140,
+            translateY: -100,
             translateX: transformHalf,
           }}
           animate={{
@@ -47,8 +48,6 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
           }}
           exit={{
             opacity: 0,
-            translateY: -140,
-            translateX: transformHalf,
           }}
           className="absolute left-1/2 top-1/2 z-[100] w-[500px] max-w-[90vw]"
         >
