@@ -29,7 +29,6 @@ export default async function RootLayout({
           <ModalProvider />
           <AuthProvider>{children}</AuthProvider>
           <div id="portal" />
-          <div id="backdrop" />
         </ThemeProvider>
       </body>
     </html>

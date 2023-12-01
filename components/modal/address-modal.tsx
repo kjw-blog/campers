@@ -1,37 +1,59 @@
-import { motion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import DaumPostCode from 'react-daum-postcode';
 import { createPortal } from 'react-dom';
 
-const BackDrop = () => {
+interface AddressModalProps {
+  onClose: () => void;
+}
+
+const BackDrop = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="fixed left-0 top-0 z-[99] h-[100vh] w-[100vw] backdrop-blur-sm" />
+    <div
+      onClick={onClose}
+      className="fixed left-0 top-0 z-[99] h-[100vh] w-[100vw] backdrop-blur-sm"
+    />
   );
 };
 
-export const AddressModal = () => {
+export const AddressModal = ({ onClose }: AddressModalProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
-  const [backdropElement, setBackdropElement] = useState<HTMLElement | null>(
-    null,
-  );
+
+  const transformHalf = useTransform(() => '-50%').get();
 
   useEffect(() => {
     const portal = document.getElementById('portal');
-    const backdrop = document.getElementById('backdrop');
 
     setPortalElement(portal);
-    setBackdropElement(backdrop);
   }, []);
 
-  if (!portalElement || !backdropElement) return;
+  if (!portalElement) return;
 
   return (
     <>
-      {createPortal(<BackDrop />, backdropElement)}
+      {createPortal(<BackDrop onClose={onClose} />, portalElement)}
       {createPortal(
-        <div className="absolute left-1/2 top-1/2 z-[100] w-[500px] max-w-[90vw] -translate-x-[50%] -translate-y-[50%]">
+        <motion.div
+          variants={{}}
+          initial={{
+            opacity: 0,
+            translateY: -140,
+            translateX: transformHalf,
+          }}
+          animate={{
+            opacity: 1,
+            translateY: transformHalf,
+            translateX: transformHalf,
+          }}
+          exit={{
+            opacity: 0,
+            translateY: -140,
+            translateX: transformHalf,
+          }}
+          className="absolute left-1/2 top-1/2 z-[100] w-[500px] max-w-[90vw]"
+        >
           <DaumPostCode style={{ zIndex: 999 }} />
-        </div>,
+        </motion.div>,
         portalElement,
       )}
     </>

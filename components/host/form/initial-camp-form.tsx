@@ -43,8 +43,12 @@ export const InitialCampForm = () => {
     },
   });
 
-  const searchAddressHandler = () => {
+  const openAddressModal = () => {
     setOnAddressModal(true);
+  };
+
+  const closeAddressModal = () => {
+    setOnAddressModal(false);
   };
 
   const moveButtonHandler = (type: 'prev' | 'next') => {
@@ -92,7 +96,7 @@ export const InitialCampForm = () => {
             />
             <button
               type="button"
-              onClick={searchAddressHandler}
+              onClick={openAddressModal}
               className="rounded-md bg-camp-heavy px-4 text-sm font-bold text-white"
             >
               주소검색
@@ -140,7 +144,9 @@ export const InitialCampForm = () => {
           다음
         </button>
       </div>
-      <AnimatePresence>{onAddressModal && <AddressModal />}</AnimatePresence>
+      <AnimatePresence>
+        {onAddressModal && <AddressModal onClose={closeAddressModal} />}
+      </AnimatePresence>
     </>
   );
 };
