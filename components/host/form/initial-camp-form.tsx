@@ -1,12 +1,15 @@
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import DaumPostCode from 'react-daum-postcode';
 
 import { useModalStore } from '@/store/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
+import { AddressModal } from '@/components/modal/address-modal';
+import { AnimatePresence } from 'framer-motion';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -20,7 +23,9 @@ const CampForm = z.object({
 
 export const InitialCampForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
+
   const [formStep, setFormStep] = useState(0);
+  const [onAddressModal, setOnAddressModal] = useState(false);
 
   const { openModal } = useModalStore();
 
@@ -37,6 +42,10 @@ export const InitialCampForm = () => {
       detailAddress: '',
     },
   });
+
+  const searchAddressHandler = () => {
+    setOnAddressModal(true);
+  };
 
   const moveButtonHandler = (type: 'prev' | 'next') => {
     const form = formRef.current;
@@ -83,6 +92,7 @@ export const InitialCampForm = () => {
             />
             <button
               type="button"
+              onClick={searchAddressHandler}
               className="rounded-md bg-camp-heavy px-4 text-sm font-bold text-white"
             >
               주소검색
@@ -130,6 +140,7 @@ export const InitialCampForm = () => {
           다음
         </button>
       </div>
+      <AnimatePresence>{onAddressModal && <AddressModal />}</AnimatePresence>
     </>
   );
 };

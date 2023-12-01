@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { InitialCampModal } from '@/components/modal/initial-camp-modal';
 import { ErrorModal } from '@/components/modal/error-modal';
 
 export const ModalProvider = () => {
