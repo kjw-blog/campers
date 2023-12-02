@@ -5,9 +5,10 @@ import { createPortal } from 'react-dom';
 
 interface AddressModalProps {
   onClose: () => void;
+  onComplete: (address: Address) => void;
 }
 
-const BackDrop = ({ onClose }: { onClose: () => void }) => {
+const BackDrop = ({ onClose }: Pick<AddressModalProps, 'onClose'>) => {
   return (
     <motion.div
       exit={{ opacity: 0 }}
@@ -17,7 +18,7 @@ const BackDrop = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export const AddressModal = ({ onClose }: AddressModalProps) => {
+export const AddressModal = ({ onClose, onComplete }: AddressModalProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
 
   const transformHalf = useTransform(() => '-50%').get();
@@ -29,12 +30,6 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
   }, []);
 
   if (!portalElement) return;
-
-  const onComplete = (address: Address) => {
-    console.log(address);
-
-    onClose();
-  };
 
   return (
     <>

@@ -8,6 +8,7 @@ import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
+import { Address } from 'react-daum-postcode';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -15,6 +16,9 @@ const CampForm = z.object({
   }),
   name: z.string().min(1, {
     message: '캠핑장 이름을 입력해 주세요.',
+  }),
+  address: z.string().min(1, {
+    message: '주소를 입력해 주세요.',
   }),
   detailAddress: z.string(),
 });
@@ -30,6 +34,7 @@ export const InitialCampForm = () => {
     control,
     watch,
     register,
+    setValue,
     formState: { errors },
   } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
@@ -46,6 +51,12 @@ export const InitialCampForm = () => {
 
   const closeAddressModal = () => {
     setOnAddressModal(false);
+  };
+
+  const addressSearchHandler = ({ roadAddress }: Address) => {
+    setValue('address', roadAddress);
+
+    closeAddressModal();
   };
 
   const moveButtonHandler = (type: 'prev' | 'next') => {
@@ -91,6 +102,7 @@ export const InitialCampForm = () => {
           <div className="flex w-full justify-between space-x-5">
             <input
               disabled
+              {...register('address')}
               type="text"
               placeholder="주소"
               className="flex-1 rounded-sm border border-zinc-300 px-[10px] py-4 text-sm text-zinc-500 outline-none dark:bg-[#3b3b3b]"
@@ -138,6 +150,7 @@ export const InitialCampForm = () => {
             )}
           />
         </div>
+
         <button
           onClick={() => moveButtonHandler('next')}
           className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
@@ -146,7 +159,12 @@ export const InitialCampForm = () => {
         </button>
       </div>
       <AnimatePresence>
-        {onAddressModal && <AddressModal onClose={closeAddressModal} />}
+        {onAddressModal && (
+          <AddressModal
+            onComplete={addressSearchHandler}
+            onClose={closeAddressModal}
+          />
+        )}
       </AnimatePresence>
     </div>
   );
