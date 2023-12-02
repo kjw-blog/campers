@@ -1,15 +1,13 @@
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import DaumPostCode from 'react-daum-postcode';
+import { AnimatePresence } from 'framer-motion';
 
-import { useModalStore } from '@/store/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
-import { AnimatePresence } from 'framer-motion';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -27,8 +25,6 @@ export const InitialCampForm = () => {
 
   const [formStep, setFormStep] = useState(0);
   const [onAddressModal, setOnAddressModal] = useState(false);
-
-  const { openModal } = useModalStore();
 
   const {
     control,

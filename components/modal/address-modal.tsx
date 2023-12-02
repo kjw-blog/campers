@@ -1,6 +1,6 @@
-import { motion, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import DaumPostCode from 'react-daum-postcode';
+import DaumPostCode, { Address, Search } from 'react-daum-postcode';
 import { createPortal } from 'react-dom';
 
 interface AddressModalProps {
@@ -9,7 +9,8 @@ interface AddressModalProps {
 
 const BackDrop = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div
+    <motion.div
+      exit={{ opacity: 0 }}
       onClick={onClose}
       className="fixed left-0 top-0 z-[99] h-[100vh] w-[100vw] backdrop-blur-sm"
     />
@@ -28,6 +29,12 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
   }, []);
 
   if (!portalElement) return;
+
+  const onComplete = (address: Address) => {
+    console.log(address);
+
+    onClose();
+  };
 
   return (
     <>
@@ -51,7 +58,7 @@ export const AddressModal = ({ onClose }: AddressModalProps) => {
           }}
           className="absolute left-1/2 top-1/2 z-[100] w-[500px] max-w-[90vw]"
         >
-          <DaumPostCode style={{ zIndex: 999 }} />
+          <DaumPostCode onComplete={onComplete} style={{ zIndex: 999 }} />
         </motion.div>,
         portalElement,
       )}
