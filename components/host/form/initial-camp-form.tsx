@@ -1,15 +1,16 @@
-import { BaseSyntheticEvent, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { AnimatePresence } from 'framer-motion';
+import axios from 'axios';
+import { Address } from 'react-daum-postcode';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
-import { Address } from 'react-daum-postcode';
-import axios from 'axios';
+
 import { useModalStore } from '@/store/use-modal-store';
 
 const CampForm = z.object({
@@ -24,6 +25,9 @@ const CampForm = z.object({
   }),
   detailAddress: z.string().min(1, {
     message: '상세 주소를 입력해 주세요.',
+  }),
+  call: z.string().min(1, {
+    message: '캠핑장 연락처를 입력해 주세요.',
   }),
 });
 
@@ -48,6 +52,7 @@ export const InitialCampForm = () => {
       name: '',
       address: '',
       detailAddress: '',
+      call: '',
     },
   });
 
@@ -89,7 +94,11 @@ export const InitialCampForm = () => {
   };
 
   const createCampHandler = async (data: z.infer<typeof CampForm>) => {
-    console.log(data);
+    try {
+      await axios.post('/api/host/camp/create', data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onInvalid = (obj: Object) => {
@@ -142,7 +151,11 @@ export const InitialCampForm = () => {
             label="캠핑장 이름"
             register={register('name')}
             placeholder="캠핑장 이름을 입력해 주세요."
-            warning={errors.name?.message}
+          />
+          <Input
+            label="캠핑장 연락처"
+            register={register('call')}
+            placeholder="캠핑장 연락처를 입력해 주세요."
           />
         </div>
       </form>
