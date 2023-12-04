@@ -12,6 +12,7 @@ import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
 
 import { useModalStore } from '@/store/use-modal-store';
+import { Loader2 } from 'lucide-react';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -43,7 +44,7 @@ export const InitialCampForm = () => {
     control,
     register,
     setValue,
-    formState: { errors },
+    formState: { isSubmitting },
     handleSubmit,
   } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
@@ -191,11 +192,12 @@ export const InitialCampForm = () => {
         )}
         {formStep === 1 && (
           <button
+            disabled={isSubmitting}
             form="create-camp"
             type="submit"
             className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
           >
-            저장
+            {isSubmitting ? <Loader2 className="animate-spin" /> : '저장'}
           </button>
         )}
       </div>

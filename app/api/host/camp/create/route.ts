@@ -11,6 +11,8 @@ export async function POST(req: Request) {
     }
 
     const request = await req.json();
+    const { address, detailAddress, call, name, thumbnail } = request;
+    console.log(address, detailAddress, call, name, thumbnail);
 
     return NextResponse.json('');
   } catch (error) {
