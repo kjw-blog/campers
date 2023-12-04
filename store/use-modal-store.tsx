@@ -3,7 +3,7 @@ import { create } from 'zustand';
 type ModalType = 'error' | null;
 
 type DataType = {
-  text?: string;
+  text?: string | string[];
   title?: string;
 };
 

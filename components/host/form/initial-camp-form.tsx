@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { BaseSyntheticEvent, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { AnimatePresence } from 'framer-motion';
@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
 import { Address } from 'react-daum-postcode';
+import axios from 'axios';
+import { useModalStore } from '@/store/use-modal-store';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -20,27 +22,31 @@ const CampForm = z.object({
   address: z.string().min(1, {
     message: '주소를 입력해 주세요.',
   }),
-  detailAddress: z.string(),
+  detailAddress: z.string().min(1, {
+    message: '상세 주소를 입력해 주세요.',
+  }),
 });
 
 export const InitialCampForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useModalStore();
 
   const [formStep, setFormStep] = useState(0);
   const [onAddressModal, setOnAddressModal] = useState(false);
 
   const {
     control,
-    watch,
     register,
     setValue,
     formState: { errors },
+    handleSubmit,
   } = useForm<z.infer<typeof CampForm>>({
     resolver: zodResolver(CampForm),
     defaultValues: {
       thumbnail: '',
       name: '',
+      address: '',
       detailAddress: '',
     },
   });
@@ -82,10 +88,22 @@ export const InitialCampForm = () => {
     }
   };
 
+  const createCampHandler = async (data: z.infer<typeof CampForm>) => {
+    console.log(data);
+  };
+
+  const onInvalid = (obj: Object) => {
+    const messages = Object.values(obj).map((item) => item.message);
+
+    openModal('error', { text: messages });
+  };
+
   return (
     <div className="w-[500px] space-y-3">
       <form
         ref={formRef}
+        id="create-camp"
+        onSubmit={handleSubmit(createCampHandler, onInvalid)}
         className="flex items-center space-x-3 px-3 transition duration-1000"
       >
         <Controller
@@ -102,10 +120,10 @@ export const InitialCampForm = () => {
           <div className="flex w-full justify-between space-x-5">
             <input
               disabled
-              {...register('address')}
               type="text"
               placeholder="주소"
               className="flex-1 rounded-sm border border-zinc-300 px-[10px] py-4 text-sm text-zinc-500 outline-none dark:bg-[#3b3b3b]"
+              {...register('address')}
             />
             <button
               type="button"
@@ -150,13 +168,23 @@ export const InitialCampForm = () => {
             )}
           />
         </div>
-
-        <button
-          onClick={() => moveButtonHandler('next')}
-          className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
-        >
-          다음
-        </button>
+        {formStep === 0 && (
+          <button
+            onClick={() => moveButtonHandler('next')}
+            className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
+          >
+            다음
+          </button>
+        )}
+        {formStep === 1 && (
+          <button
+            form="create-camp"
+            type="submit"
+            className="rounded-md bg-camp-heavy px-4 py-2 font-bold text-white"
+          >
+            저장
+          </button>
+        )}
       </div>
       <AnimatePresence>
         {onAddressModal && (

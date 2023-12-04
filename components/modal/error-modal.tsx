@@ -7,11 +7,14 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useModalStore } from '@/store/use-modal-store';
+import { X } from 'lucide-react';
 
 export const ErrorModal = () => {
   const { isOpen, type, data, closeModal } = useModalStore();
 
   const open = isOpen && type === 'error';
+
+  const messages = data?.text;
 
   return (
     <Dialog open={open} onOpenChange={closeModal}>
@@ -20,8 +23,23 @@ export const ErrorModal = () => {
           <DialogTitle className="bg-camp-heavy py-3 pl-4 text-left text-sm font-bold text-white">
             {data?.title ?? '오류 발생'}
           </DialogTitle>
-          <DialogDescription className="p-3 text-xs text-zinc-600 ">
-            {data?.text}
+          <DialogDescription className="select-none p-3 text-xs text-zinc-600 ">
+            {typeof messages === 'string' && <>{messages}</>}
+            {typeof messages !== 'string' &&
+              messages &&
+              messages.length > 0 && (
+                <div className="flex flex-col space-y-4">
+                  {messages.map((message, idx) => (
+                    <div
+                      className="flex items-center justify-center space-x-2"
+                      key={idx}
+                    >
+                      <X className="h-4 w-4 stroke-rose-500" />
+                      <span>{message}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="px-3 py-2">
