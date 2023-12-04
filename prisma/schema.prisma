@@ -85,17 +85,18 @@ model Campground {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  image CampGroundImage[]
+  image String @db.Text
+  // image CampGroundImage[]
 
   @@index([userId])
 }
 
-model CampGroundImage {
-  id       String @id @default(cuid())
-  imageUrl String @db.Text
+// model CampGroundImage {
+//   id       String @id @default(cuid())
+//   imageUrl String @db.Text
 
-  campId String
-  camp   Campground @relation(fields: [campId], references: [id], onDelete: Cascade)
+//   campId String
+//   camp   Campground @relation(fields: [campId], references: [id], onDelete: Cascade)
 
-  @@index([campId])
-}
+//   @@index([campId])
+// }

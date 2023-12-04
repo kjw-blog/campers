@@ -4,15 +4,15 @@ import { z } from 'zod';
 import { AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { Address } from 'react-daum-postcode';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FileUpload } from '@/components/common/file-upload';
 import { cn } from '@/lib/utils';
 import Input from '@/components/common/input';
 import { AddressModal } from '@/components/modal/address-modal';
-
 import { useModalStore } from '@/store/use-modal-store';
-import { Loader2 } from 'lucide-react';
 
 const CampForm = z.object({
   thumbnail: z.string().min(1, {
@@ -39,6 +39,8 @@ export const InitialCampForm = () => {
 
   const [formStep, setFormStep] = useState(0);
   const [onAddressModal, setOnAddressModal] = useState(false);
+
+  const router = useRouter();
 
   const {
     control,
@@ -97,6 +99,9 @@ export const InitialCampForm = () => {
   const createCampHandler = async (data: z.infer<typeof CampForm>) => {
     try {
       await axios.post('/api/host/camp/create', data);
+
+      router.refresh();
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }

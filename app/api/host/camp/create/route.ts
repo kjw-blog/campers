@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { currentUser } from '@/lib/current-user';
+import { db } from '@/lib/db';
 
 export async function POST(req: Request) {
   try {
@@ -12,9 +13,19 @@ export async function POST(req: Request) {
 
     const request = await req.json();
     const { address, detailAddress, call, name, thumbnail } = request;
-    console.log(address, detailAddress, call, name, thumbnail);
 
-    return NextResponse.json('');
+    const newCamp = await db.campground.create({
+      data: {
+        userId: user.id,
+        address,
+        detailAddress,
+        call,
+        name,
+        image: thumbnail,
+      },
+    });
+
+    return NextResponse.json(newCamp);
   } catch (error) {
     console.log('HOST_CAMP_CREATE_ERROR', error);
     return new NextResponse('Internal Error', { status: 500 });
