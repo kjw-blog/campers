@@ -1,38 +1,17 @@
 import { LogOut, Settings } from 'lucide-react';
 import { signOut } from 'next-auth/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 
-interface UserProfileSettingProps {
-  onClose: () => void;
-}
-
-export const UserProfileSetting = ({ onClose }: UserProfileSettingProps) => {
-  const settingRef = useRef<HTMLDivElement>(null);
-
+export const UserProfileSetting = () => {
   const onLogout = () => {
     signOut({
       callbackUrl: '/',
     });
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e: Event) => {
-      if (!settingRef.current?.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [settingRef, onClose]);
-
   return (
     <motion.div
-      ref={settingRef}
       initial={{ opacity: 0, width: 40, height: 40 }}
       animate={{ opacity: 1, width: 140, height: 73 }}
       exit={{ opacity: 0, width: 40, height: 40 }}
