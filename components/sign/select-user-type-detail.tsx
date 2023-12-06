@@ -1,6 +1,7 @@
 import { UserType } from '@prisma/client';
 import { Tent, Backpack } from 'lucide-react';
 import Link from 'next/link';
+import { useRef, useState } from 'react';
 
 interface SelectUserTypeDetailProps {
   type: UserType;
@@ -20,15 +21,57 @@ const typeMaps = {
 };
 
 export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
+  const divRef = useRef<HTMLDivElement>(null);
   const { kr, description, Icon } = typeMaps[type];
+  const [translate, setTranslate] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const onMouseMove = ({ clientX, clientY }: React.MouseEvent) => {
+    if (divRef.current) {
+      const { x, y, width, height } = divRef.current.getBoundingClientRect();
+
+      const widthHalf = width / 2;
+      const heightHalf = height / 2;
+
+      const xValue = (~~(clientX - x - widthHalf) / 10) * -1;
+      const yValue = (~~(clientY - y - heightHalf) / 10) * -1;
+
+      setTranslate({
+        x: xValue,
+        y: yValue,
+      });
+    }
+  };
+
+  const onMouseLeave = () => {
+    setTranslate({
+      x: 0,
+      y: 0,
+    });
+  };
 
   return (
     <Link
       href={`/signup?type=${type}`}
-      className="dark:hover:shadow-dark_md group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl"
+      className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-dark_md"
     >
-      <div className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy dark:border-zinc-400 dark:bg-dark-300">
-        <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:scale-125 group-hover:stroke-white" />
+      <div
+        ref={divRef}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className="flex flex-1 items-center justify-center border-b-[1px] transition group-hover:bg-camp-heavy dark:border-zinc-400 dark:bg-dark-300"
+      >
+        <div
+          style={{
+            transform: `translate(${translate.x}px,${translate.y}px)`,
+          }}
+          className="flex flex-col items-center justify-center space-y-2"
+        >
+          <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:stroke-white" />
+          <div className="h-1 w-12 rounded-full bg-zinc-400 blur-sm group-hover:bg-zinc-700" />
+        </div>
       </div>
       <div className="flex flex-col items-center justify-center space-y-2 py-2 dark:bg-dark-200">
         <p className="font-semibold text-camp-heavy">{kr}</p>
