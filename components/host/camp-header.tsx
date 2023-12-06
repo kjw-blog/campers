@@ -1,12 +1,13 @@
 import { Campground } from '@prisma/client';
+import { ChevronDown, TentTree, Trash2 } from 'lucide-react';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, TentTree } from 'lucide-react';
 
 interface CampHeaderProps {
   camp: Campground;
@@ -22,9 +23,14 @@ export const CampHeader = ({ camp }: CampHeaderProps) => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium text-black dark:text-neutral-400">
-        <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm">
+        <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-camp-heavy">
           객실 추가
           <TentTree className="ml-auto h-4 w-4" />
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-rose-500 hover:text-rose-500">
+          캠핑장 삭제
+          <Trash2 className="ml-auto h-4 w-4" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
