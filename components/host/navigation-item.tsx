@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Campground } from '@prisma/client';
 
 import { cn } from '@/lib/utils';
+import { TooltipWrapper } from '../common/tooltip-wrapper';
 
 interface NavigationItemProps {
   camp: Campground;
@@ -21,30 +22,32 @@ export const NavigationItem = ({ camp }: NavigationItemProps) => {
   };
 
   return (
-    <button
-      onClick={onClick}
-      className="group relative flex w-full items-center justify-center"
-    >
-      <div
-        className={cn(
-          'absolute left-0 w-[4px] rounded-r-full bg-white transition-all',
-          isSelected ? 'h-[36px]' : 'h-0',
-          !isSelected && 'group-hover:h-[24px]',
-        )}
-      />
-      <div
-        className={cn(
-          'relative h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all ',
-          isSelected ? 'rounded-[16px]' : 'group-hover:rounded-[16px]',
-        )}
+    <TooltipWrapper label={camp.name}>
+      <button
+        onClick={onClick}
+        className="group relative flex w-full items-center justify-center"
       >
-        <Image
-          src={camp.image}
-          alt={camp.name}
-          sizes="(min-width: 640px) 50vw, 100vw"
-          fill
+        <div
+          className={cn(
+            'absolute left-0 w-[4px] rounded-r-full bg-white transition-all',
+            isSelected ? 'h-[36px]' : 'h-0',
+            !isSelected && 'group-hover:h-[24px]',
+          )}
         />
-      </div>
-    </button>
+        <div
+          className={cn(
+            'relative h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all ',
+            isSelected ? 'rounded-[16px]' : 'group-hover:rounded-[16px]',
+          )}
+        >
+          <Image
+            src={camp.image}
+            alt={camp.name}
+            sizes="(min-width: 640px) 50vw, 100vw"
+            fill
+          />
+        </div>
+      </button>
+    </TooltipWrapper>
   );
 };

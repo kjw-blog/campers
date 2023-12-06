@@ -6,6 +6,7 @@ import { currentUser } from '@/lib/current-user';
 import { UserProfile } from '@/components/user-profile';
 import { ThemeButton } from '@/components/common/theme-button';
 import { NavigationItem } from '@/components/host/navigation-item';
+import { TooltipWrapper } from '../common/tooltip-wrapper';
 
 export const NavigationSidebar = async () => {
   const user = await currentUser();
@@ -22,9 +23,11 @@ export const NavigationSidebar = async () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-camp-heavy py-4 transition dark:bg-dark-400">
-      <button className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white shadow-md transition hover:bg-camp-middle">
-        <Plus className="stroke-camp-heavy transition group-hover:stroke-white" />
-      </button>
+      <TooltipWrapper label="캠핑장 추가">
+        <button className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white shadow-md transition hover:bg-camp-middle">
+          <Plus className="stroke-camp-heavy transition group-hover:stroke-white" />
+        </button>
+      </TooltipWrapper>
       <div className="my-2 h-[2px] w-[48px] bg-zinc-500 dark:bg-camp-heavy" />
       <div className="w-full flex-1">
         {campList.map((camp) => (
