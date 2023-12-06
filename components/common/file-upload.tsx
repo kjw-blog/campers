@@ -16,7 +16,7 @@ export const FileUpload = ({ value, onChange }: FileUploadProps) => {
     if (type === 'pdf') return <></>;
     if (type !== 'pdf') {
       return (
-        <div className="relative aspect-video shrink-0 grow-0 basis-[90vw] sm:basis-[476px]">
+        <div className="relative aspect-video shrink-0 grow-0 basis-[90vw] bg-cover sm:basis-[476px]">
           <Image
             src={value}
             fill
