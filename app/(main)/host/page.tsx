@@ -12,7 +12,9 @@ export default async function HostPage() {
 
   const firstCamp = await db.campground.findFirst({
     where: {
-      userId: user.id,
+      user: {
+        id: user.id,
+      },
     },
   });
 
