@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type ModalType = 'error' | null;
+type ModalType = 'error' | 'create-camp' | null;
 
 type DataType = {
   text?: string | string[];
@@ -13,7 +13,7 @@ type State = {
   data?: DataType;
 };
 type Action = {
-  openModal: (type: ModalType, data: DataType) => void;
+  openModal: (type: ModalType, data?: DataType) => void;
   closeModal: () => void;
 };
 
