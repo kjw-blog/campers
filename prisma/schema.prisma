@@ -82,21 +82,52 @@ model Campground {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  checkIn  DateTime?
+  checkOut DateTime?
+
+  description String @db.Text
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   image String @db.Text
-  // image CampGroundImage[]
+  Room  Room[]
 
   @@index([userId])
 }
 
-// model CampGroundImage {
-//   id       String @id @default(cuid())
-//   imageUrl String @db.Text
+model Room {
+  id   String @id @default(cuid())
+  name String
 
-//   campId String
-//   camp   Campground @relation(fields: [campId], references: [id], onDelete: Cascade)
+  baseGuestNumber    Int
+  maximumGuestNumber Int
+  additionalPrice    Int
 
-//   @@index([campId])
-// }
+  peakSeasonPrice     Int
+  semiPeakSeasonPrice Int
+  offSeasonPrice      Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  campId    String
+  camp      Campground  @relation(fields: [campId], references: [id], onDelete: Cascade)
+  RoomImage RoomImage[]
+
+  @@index([campId])
+}
+
+model RoomImage {
+  id String @id @default(cuid())
+
+  imageUrl String @db.Text
+
+  roomId String
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roomId])
+}
