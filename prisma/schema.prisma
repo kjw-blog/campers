@@ -91,7 +91,7 @@ model Campground {
   updatedAt DateTime @updatedAt
 
   image String @db.Text
-  Room  Room[]
+  room  Room[]
 
   @@index([userId])
 }
@@ -102,20 +102,20 @@ model Room {
 
   isVisible Boolean @default(false)
 
-  baseGuestNumber    Int
-  maximumGuestNumber Int
-  additionalPrice    Int
+  baseGuestNumber    Int @default(0)
+  maximumGuestNumber Int @default(0)
+  additionalPrice    Int @default(0)
 
-  peakSeasonPrice     Int
-  semiPeakSeasonPrice Int
-  offSeasonPrice      Int
+  peakSeasonPrice     Int @default(0)
+  semiPeakSeasonPrice Int @default(0)
+  offSeasonPrice      Int @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   campId    String
   camp      Campground  @relation(fields: [campId], references: [id], onDelete: Cascade)
-  RoomImage RoomImage[]
+  roomImage RoomImage[]
 
   @@index([campId])
 }

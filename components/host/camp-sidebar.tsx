@@ -19,6 +19,9 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
         id: user.id,
       },
     },
+    include: {
+      room: true,
+    },
   });
 
   return (

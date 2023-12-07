@@ -1,3 +1,9 @@
+import { useForm } from 'react-hook-form';
+import { Loader2 } from 'lucide-react';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import qs from 'query-string';
+
 import {
   Dialog,
   DialogContent,
@@ -5,11 +11,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useModalStore } from '@/store/use-modal-store';
-import Input from '../common/input';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader, Loader2 } from 'lucide-react';
+import Input from '@/components/common/input';
+import axios, { isAxiosError } from 'axios';
 
 const Form = z.object({
   name: z.string().min(1, {
@@ -26,6 +29,8 @@ export const CreateRoomModal = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setError,
+    reset,
   } = useForm<z.infer<typeof Form>>({
     resolver: zodResolver(Form),
     defaultValues: {
@@ -33,10 +38,34 @@ export const CreateRoomModal = () => {
     },
   });
 
-  const onValid = async ({ name }: z.infer<typeof Form>) => {};
+  const onClose = () => {
+    closeModal();
+    reset();
+  };
+
+  const onValid = async (values: z.infer<typeof Form>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: '/api/host/room',
+        query: {
+          campId: data?.campId,
+        },
+      });
+
+      await axios.post(url, values);
+
+      onClose();
+    } catch (e) {
+      if (isAxiosError(e)) {
+        const error = e.response?.data;
+
+        setError('name', { message: error });
+      }
+    }
+  };
 
   return (
-    <Dialog open={open} onOpenChange={closeModal}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[90%] max-w-[400px] gap-0 overflow-hidden rounded-md p-0 dark:bg-dark-200">
         <DialogTitle className="bg-camp-heavy py-3 pl-4 text-left text-sm font-bold text-white">
           객실 추가
