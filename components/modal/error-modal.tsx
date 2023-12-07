@@ -1,3 +1,5 @@
+import { X } from 'lucide-react';
+
 import {
   Dialog,
   DialogContent,
@@ -7,7 +9,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useModalStore } from '@/store/use-modal-store';
-import { X } from 'lucide-react';
 
 export const ErrorModal = () => {
   const { isOpen, type, data, closeModal } = useModalStore();

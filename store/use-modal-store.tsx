@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 
-type ModalType = 'error' | 'create-camp' | null;
+type ModalType = 'error' | 'create-camp' | 'create-room' | null;
 
 type DataType = {
   text?: string | string[];
   title?: string;
+  campId?: string;
 };
 
 type State = {

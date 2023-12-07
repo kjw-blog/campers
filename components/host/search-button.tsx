@@ -34,7 +34,7 @@ export const SearchButton = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="text-md group  flex h-12 w-full items-center px-3 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
+        className="text-md group flex h-12 w-full select-none items-center px-3 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
       >
         <div className="flex items-center space-x-1">
           <Search className="h-4 w-4" />

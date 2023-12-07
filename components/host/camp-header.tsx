@@ -1,3 +1,5 @@
+'use client';
+
 import { Campground } from '@prisma/client';
 import { ChevronDown, TentTree, Trash2 } from 'lucide-react';
 
@@ -8,12 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useModalStore } from '@/store/use-modal-store';
 
 interface CampHeaderProps {
   camp: Campground;
 }
 
 export const CampHeader = ({ camp }: CampHeaderProps) => {
+  const { openModal } = useModalStore();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="focus:outline-none">
@@ -25,7 +30,10 @@ export const CampHeader = ({ camp }: CampHeaderProps) => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium text-black dark:text-neutral-400">
-        <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-camp-heavy">
+        <DropdownMenuItem
+          onClick={() => openModal('create-room', { campId: camp.id })}
+          className="cursor-pointer px-3 py-2 text-sm text-camp-heavy"
+        >
           객실 추가
           <TentTree className="ml-auto h-4 w-4" />
         </DropdownMenuItem>

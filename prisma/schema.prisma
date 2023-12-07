@@ -85,7 +85,7 @@ model Campground {
   checkIn  DateTime?
   checkOut DateTime?
 
-  description String @db.Text
+  description String? @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -99,6 +99,8 @@ model Campground {
 model Room {
   id   String @id @default(cuid())
   name String
+
+  isVisible Boolean @default(false)
 
   baseGuestNumber    Int
   maximumGuestNumber Int
