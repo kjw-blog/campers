@@ -2,6 +2,7 @@
 
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,7 +10,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@/components/ui/command';
 
 export const SearchButton = () => {

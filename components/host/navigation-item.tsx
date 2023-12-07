@@ -18,7 +18,7 @@ export const NavigationItem = ({ camp }: NavigationItemProps) => {
   const isSelected = params?.campId === camp.id;
 
   const onClick = () => {
-    router.push(`/host/camp/${camp.id}`);
+    router.push(`/host/camp/${camp.id}/dashboard`);
   };
 
   return (

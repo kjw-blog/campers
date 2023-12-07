@@ -19,7 +19,7 @@ export default async function HostPage() {
   });
 
   if (firstCamp) {
-    redirect(`/host/camp/${firstCamp.id}`);
+    redirect(`/host/camp/${firstCamp.id}/dashboard`);
   }
 
   return <InitialCampModal />;

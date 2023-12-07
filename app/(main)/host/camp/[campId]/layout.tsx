@@ -21,6 +21,7 @@ export default async function CampIdLayout({
       id: params.campId,
       user: {
         id: user.id,
+        type: 'HOST',
       },
     },
   });

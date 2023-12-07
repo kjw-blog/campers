@@ -17,8 +17,10 @@ export const CampHeader = ({ camp }: CampHeaderProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="focus:outline-none">
-        <button className="text-md flex h-12 w-full select-none items-center border-b-2 border-neutral-200 px-3 font-semibold transition hover:bg-zinc-700/10 dark:border-neutral-800 dark:hover:bg-zinc-700/50">
-          {camp.name}
+        <button className="text-md flex h-12 w-full select-none items-center justify-start space-x-1 border-b-2 border-neutral-200 px-3 font-semibold transition hover:bg-zinc-700/10 dark:border-neutral-800 dark:hover:bg-zinc-700/50">
+          <span className="block flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">
+            {camp.name}
+          </span>
           <ChevronDown className="ml-auto h-5 w-5" />
         </button>
       </DropdownMenuTrigger>
