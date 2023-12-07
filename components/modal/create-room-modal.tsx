@@ -13,6 +13,7 @@ import {
 import { useModalStore } from '@/store/use-modal-store';
 import Input from '@/components/common/input';
 import axios, { isAxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Form = z.object({
   name: z.string().min(1, {
@@ -22,6 +23,7 @@ const Form = z.object({
 
 export const CreateRoomModal = () => {
   const { isOpen, type, data, closeModal } = useModalStore();
+  const router = useRouter();
 
   const open = isOpen && type === 'create-room';
 
@@ -55,6 +57,7 @@ export const CreateRoomModal = () => {
       await axios.post(url, values);
 
       onClose();
+      router.refresh();
     } catch (e) {
       if (isAxiosError(e)) {
         const error = e.response?.data;

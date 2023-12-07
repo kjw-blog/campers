@@ -6,6 +6,8 @@ import { CampHeader } from './camp-header';
 import { SearchButton } from './search-button';
 import { currentUser } from '@/lib/current-user';
 import { DashboardButton } from './dashboard-button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { RoomItem } from './room-item';
 
 export const CampSidebar = async ({ campId }: { campId: string }) => {
   const user = await currentUser();
@@ -31,6 +33,9 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
       <DashboardButton />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
+      <ScrollArea className="flex-1">
+        {camp?.room.map((item) => <RoomItem key={item.id} room={item} />)}
+      </ScrollArea>
     </div>
   );
 };
