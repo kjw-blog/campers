@@ -1,7 +1,7 @@
 import { Room } from '@prisma/client';
 import { create } from 'zustand';
 
-type ModalType = 'error' | 'create-camp' | 'room-manage' | null;
+type ModalType = 'error' | 'create-camp' | 'room-manage' | 'room-delete' | null;
 
 type DataType = {
   text?: string | string[];

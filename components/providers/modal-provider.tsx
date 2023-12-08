@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { ErrorModal } from '@/components/modal/error-modal';
 import { CreateCampModal } from '@/components/modal/create-camp-modal';
 import { RoomManageModal } from '@/components/modal/room-manage-modal';
+import { RoomDeleteModal } from '../modal/room-delete-modal';
 
 export const ModalProvider = () => {
   const [onMount, setOnMount] = useState(false);
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
       <ErrorModal />
       <CreateCampModal />
       <RoomManageModal />
+      <RoomDeleteModal />
     </>
   );
 };
