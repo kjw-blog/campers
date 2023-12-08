@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 const Form = z.object({
-  name: z.string().min(1, {
+  name: z.string().trim().min(1, {
     message: '객실명을 입력해 주세요.',
   }),
 });
@@ -49,22 +49,21 @@ export const RoomManageModal = () => {
 
   const onValid = async (values: z.infer<typeof Form>) => {
     try {
+      const method = data?.room ? 'patch' : 'post';
+
       const url = qs.stringifyUrl({
         url: '/api/host/room',
         query: {
           campId: data?.campId,
+          ...(data?.room && { roomId: data.room.id }),
         },
       });
-
-      const method = data?.room ? 'patch' : 'post';
 
       await axios({
         method,
         url,
         data: values,
       });
-
-      // await axios.post(url, values);
 
       onClose();
       router.refresh();
