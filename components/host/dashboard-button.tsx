@@ -1,16 +1,23 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { LayoutDashboard } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
-export const DashboardButton = () => {
+import { cn } from '@/lib/utils';
+
+export const DashboardButton = ({ campId }: { campId: string }) => {
+  const router = useRouter();
   const path = usePathname();
 
   const isDashboard = path.split('/').pop() === 'dashboard';
 
+  const onClick = () => {
+    router.push(`/host/camp/${campId}/dashboard`);
+  };
+
   return (
     <button
+      onClick={onClick}
       className={cn(
         'group flex h-12 w-full items-center space-x-1 px-3 transition',
         isDashboard

@@ -31,7 +31,7 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
       <CampHeader camp={camp!} />
       <SearchButton />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
-      <DashboardButton />
+      <DashboardButton campId={campId} />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
       <ScrollArea className="flex-1">
         {camp?.room.map((item) => (
