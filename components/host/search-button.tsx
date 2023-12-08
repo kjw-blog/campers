@@ -2,6 +2,8 @@
 
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Room } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 import {
   CommandDialog,
@@ -12,8 +14,20 @@ import {
   CommandList,
 } from '@/components/ui/command';
 
-export const SearchButton = () => {
+interface SearchButtonProps {
+  room: Room[];
+  campId: string;
+}
+
+export const SearchButton = ({ room, campId }: SearchButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const onClick = (roomId: string) => {
+    router.push(`/host/camp/${campId}/room/${roomId}`);
+
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -49,11 +63,20 @@ export const SearchButton = () => {
         <CommandList>
           <CommandEmpty>검색하신 객실이 없습니다.</CommandEmpty>
         </CommandList>
-        <CommandGroup heading="객실">
-          <CommandItem value="101호">101호</CommandItem>
-          <CommandItem value="102호">102호</CommandItem>
-          <CommandItem value="103호">103호</CommandItem>
-        </CommandGroup>
+        {room.length > 0 && (
+          <CommandGroup heading="객실">
+            {room.map((value) => (
+              <CommandItem
+                className="cursor-pointer"
+                onSelect={() => onClick(value.id)}
+                key={value.id}
+                value={value.name}
+              >
+                {value.name}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
       </CommandDialog>
     </>
   );

@@ -26,10 +26,14 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
     },
   });
 
+  if (!camp) {
+    redirect('/');
+  }
+
   return (
     <div className="flex h-full w-full flex-col bg-[#F2F3F5] text-primary dark:bg-dark-300">
       <CampHeader camp={camp!} />
-      <SearchButton />
+      <SearchButton campId={campId} room={camp.room} />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
       <DashboardButton campId={campId} />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
