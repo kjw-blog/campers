@@ -14,6 +14,7 @@ import { useModalStore } from '@/store/use-modal-store';
 import Input from '@/components/common/input';
 import axios, { isAxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Form = z.object({
   name: z.string().min(1, {
@@ -21,16 +22,17 @@ const Form = z.object({
   }),
 });
 
-export const CreateRoomModal = () => {
+export const RoomManageModal = () => {
   const { isOpen, type, data, closeModal } = useModalStore();
   const router = useRouter();
 
-  const open = isOpen && type === 'create-room';
+  const open = isOpen && type === 'room-manage';
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setValue,
     setError,
     reset,
   } = useForm<z.infer<typeof Form>>({
@@ -54,7 +56,15 @@ export const CreateRoomModal = () => {
         },
       });
 
-      await axios.post(url, values);
+      const method = data?.room ? 'patch' : 'post';
+
+      await axios({
+        method,
+        url,
+        data: values,
+      });
+
+      // await axios.post(url, values);
 
       onClose();
       router.refresh();
@@ -67,11 +77,17 @@ export const CreateRoomModal = () => {
     }
   };
 
+  useEffect(() => {
+    if (data?.room) {
+      setValue('name', data.room.name);
+    }
+  }, [data?.room, setValue]);
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[90%] max-w-[400px] gap-0 overflow-hidden rounded-md p-0 dark:bg-dark-200">
         <DialogTitle className="bg-camp-heavy py-3 pl-4 text-left text-sm font-bold text-white">
-          객실 추가
+          {data?.title ?? '객실 추가'}
         </DialogTitle>
         <form
           onSubmit={handleSubmit(onValid)}

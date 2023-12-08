@@ -34,7 +34,9 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
       <DashboardButton />
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
       <ScrollArea className="flex-1">
-        {camp?.room.map((item) => <RoomItem key={item.id} room={item} />)}
+        {camp?.room.map((item) => (
+          <RoomItem key={item.id} room={item} campId={campId} />
+        ))}
       </ScrollArea>
     </div>
   );

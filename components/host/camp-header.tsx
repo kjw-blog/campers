@@ -31,7 +31,7 @@ export const CampHeader = ({ camp }: CampHeaderProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium text-black dark:text-neutral-400">
         <DropdownMenuItem
-          onClick={() => openModal('create-room', { campId: camp.id })}
+          onClick={() => openModal('room-manage', { campId: camp.id })}
           className="cursor-pointer px-3 py-2 text-sm text-camp-heavy"
         >
           객실 추가
