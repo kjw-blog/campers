@@ -115,7 +115,49 @@ export async function PATCH(req: Request) {
 
     return NextResponse.json(camp);
   } catch (error) {
-    console.log('HOST_ROOM_CREATE_ERROR', error);
+    console.log('HOST_ROOM_NAME_UPDATE_ERROR', error);
+    return new NextResponse('Internal Error', { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const user = await currentUser();
+
+    const { searchParams } = new URL(req.url);
+    const campId = searchParams.get('campId');
+    const roomId = searchParams.get('roomId');
+
+    if (!user || user.type !== 'HOST') {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    if (!campId) {
+      return new NextResponse('Camp Id Missing', { status: 400 });
+    }
+    if (!roomId) {
+      return new NextResponse('Room Id Missing', { status: 400 });
+    }
+
+    const camp = await db.campground.update({
+      where: {
+        id: campId,
+        user: {
+          id: user.id,
+        },
+      },
+      data: {
+        room: {
+          delete: {
+            id: roomId,
+          },
+        },
+      },
+    });
+
+    return NextResponse.json(camp);
+  } catch (error) {
+    console.log('HOST_ROOM_DELETE_ERROR', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

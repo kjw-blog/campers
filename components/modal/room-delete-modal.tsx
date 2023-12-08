@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import axios from 'axios';
+import qs from 'query-string';
+import { useRouter } from 'next/navigation';
+
 import {
   Dialog,
   DialogContent,
@@ -7,12 +12,37 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useModalStore } from '@/store/use-modal-store';
+import { Loader2 } from 'lucide-react';
 
 export const RoomDeleteModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const { isOpen, type, data, closeModal } = useModalStore();
 
   const open = isOpen && type === 'room-delete';
 
+  const onDelete = async () => {
+    try {
+      setIsLoading(true);
+
+      const url = qs.stringifyUrl({
+        url: '/api/host/room',
+        query: {
+          campId: data?.campId,
+          roomId: data?.room?.id,
+        },
+      });
+
+      await axios.delete(url);
+      router.refresh();
+      closeModal();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <Dialog open={open} onOpenChange={closeModal}>
       <DialogContent className="z-50 w-auto min-w-[320px] gap-0 overflow-hidden p-0 dark:bg-dark-200">
@@ -30,14 +60,19 @@ export const RoomDeleteModal = () => {
         </DialogHeader>
         <DialogFooter className="px-3 py-2">
           <button
-            onClick={closeModal}
-            className="rounded-md bg-rose-500 px-2 py-1 text-sm font-bold text-white transition hover:bg-rose-500/70"
+            onClick={onDelete}
+            disabled={isLoading}
+            className="h-[30px] w-[50px] rounded-md bg-rose-500 text-sm font-bold text-white transition hover:bg-rose-500/70"
           >
-            삭제
+            {isLoading ? (
+              <Loader2 className="mx-auto h-4 w-4 animate-spin" />
+            ) : (
+              '삭제'
+            )}
           </button>
           <button
             onClick={closeModal}
-            className="rounded-md bg-camp-heavy px-2 py-1 text-sm font-bold text-white transition hover:bg-camp-heavy/70"
+            className="h-[30px] w-[50px] rounded-md bg-camp-heavy text-sm font-bold text-white transition hover:bg-camp-heavy/70"
           >
             닫기
           </button>
