@@ -54,7 +54,11 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
 
   return (
     <Link
-      href={`/signup?type=${type}`}
+      // href={`/signup?type=${type}`}
+      href={`/signup${type === 'HOST' ? '?type=HOST' : ''}`}
+      onClick={() => {
+        if (type === 'GUEST') alert('게스트 페이지는 현재 준비 중입니다.');
+      }}
       className="group flex h-60 flex-1 cursor-pointer select-none flex-col overflow-hidden rounded-md border border-zinc-300 transition duration-500 hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-dark_md"
     >
       <div

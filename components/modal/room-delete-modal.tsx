@@ -55,7 +55,7 @@ export const RoomDeleteModal = () => {
             <span className="font-bold text-camp-heavy">{`"${data?.room?.name}"`}</span>{' '}
             객실을 삭제하시겠습니까?
             <br />
-            삭제된 객실은 복구하실수없습니다.
+            삭제된 객실은 복구하실 수 없습니다.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="px-3 py-2">
