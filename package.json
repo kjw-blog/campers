@@ -41,6 +41,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@savvywombat/tailwindcss-grid-areas": "^3.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18.2.37",
