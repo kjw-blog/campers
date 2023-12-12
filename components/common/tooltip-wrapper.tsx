@@ -8,7 +8,7 @@ import {
 interface TooltipWrapperProps {
   children: React.ReactNode;
   label: string;
-  side?: 'right' | 'top';
+  side?: 'right' | 'top' | 'bottom';
 }
 
 export const TooltipWrapper = ({
