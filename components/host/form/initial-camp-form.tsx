@@ -98,7 +98,7 @@ export const InitialCampForm = () => {
 
   const createCampHandler = async (data: z.infer<typeof CampForm>) => {
     try {
-      await axios.post('/api/host/camp/create', data);
+      await axios.post('/api/host/camp', data);
 
       router.refresh();
       window.location.reload();

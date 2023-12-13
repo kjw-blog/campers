@@ -1,12 +1,19 @@
-import { Room } from '@prisma/client';
+import { Campground, Room } from '@prisma/client';
 import { create } from 'zustand';
 
-type ModalType = 'error' | 'create-camp' | 'room-manage' | 'room-delete' | null;
+type ModalType =
+  | 'error'
+  | 'create-camp'
+  | 'room-manage'
+  | 'room-delete'
+  | 'camp-delete'
+  | null;
 
 type DataType = {
   text?: string | string[];
   title?: string;
   campId?: string;
+  camp?: Campground;
   room?: Room;
 };
 
