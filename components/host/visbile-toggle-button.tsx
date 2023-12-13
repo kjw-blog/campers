@@ -20,9 +20,11 @@ export const VisibleToggleButton = ({
   campId,
 }: VisibleToggleButtonProps) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [toggle, setToggle] = useState(room.isVisible);
 
   const onToggle = async () => {
+    setIsLoading(true);
     try {
       const url = qs.stringifyUrl({
         url: '/api/host/room/visible',
@@ -38,6 +40,8 @@ export const VisibleToggleButton = ({
       router.refresh();
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -46,12 +50,14 @@ export const VisibleToggleButton = ({
       <span>{room.name}</span>
       <TooltipWrapper label="객실 표출 여부" side="bottom">
         <button
+          disabled={isLoading}
           onClick={onToggle}
           className={cn(
-            'h-6 w-12 rounded-xl transition-all duration-300',
+            'h-6 w-12 rounded-xl  transition-all duration-300',
             toggle
               ? 'bg-camp-middle/50 shadow-[0_0_10px_#42B983,0_0_20px_#42B983,0_0_40px_#42B983]'
               : 'bg-[#CDCBCD]',
+            isLoading ? 'cursor-wait' : 'cursor-pointer',
           )}
         >
           <div

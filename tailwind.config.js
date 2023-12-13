@@ -23,6 +23,14 @@ module.exports = {
           'reservation reservation reservation calendar calendar calendar price price price review review review',
           'reservation reservation reservation calendar calendar calendar price price price review review review',
         ],
+        roomMd: [
+          'graph graph graph graph',
+          'graph graph graph graph',
+          'picture picture service service',
+          'picture picture service service',
+          'reservation calendar price review',
+          'reservation calendar price review',
+        ],
         roomMobile: [
           'graph',
           'reservation',
