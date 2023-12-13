@@ -24,7 +24,11 @@ export const SearchButton = ({ room, campId }: SearchButtonProps) => {
   const router = useRouter();
 
   const onClick = (roomId: string) => {
-    router.push(`/host/camp/${campId}/room/${roomId}`);
+    if (roomId === 'dashboard') {
+      router.push(`/host/camp/${campId}/dashboard`);
+    } else {
+      router.push(`/host/camp/${campId}/room/${roomId}`);
+    }
 
     setIsOpen(false);
   };
@@ -62,21 +66,24 @@ export const SearchButton = ({ room, campId }: SearchButtonProps) => {
         <CommandInput placeholder="검색하실 객실을 입력해주세요." />
         <CommandList>
           <CommandEmpty>검색하신 객실이 없습니다.</CommandEmpty>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => onClick('dashboard')}
+            value="대시보드"
+          >
+            대시보드
+          </CommandItem>
+          {room.map((value) => (
+            <CommandItem
+              className="cursor-pointer"
+              onSelect={() => onClick(value.id)}
+              key={value.id}
+              value={value.name}
+            >
+              {value.name}
+            </CommandItem>
+          ))}
         </CommandList>
-        {room.length > 0 && (
-          <CommandGroup heading="객실">
-            {room.map((value) => (
-              <CommandItem
-                className="cursor-pointer"
-                onSelect={() => onClick(value.id)}
-                key={value.id}
-                value={value.name}
-              >
-                {value.name}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        )}
       </CommandDialog>
     </>
   );
