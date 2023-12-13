@@ -16,6 +16,23 @@ module.exports = {
       },
     },
     extend: {
+      gridTemplateAreas: {
+        room: [
+          'graph graph graph graph graph graph graph graph picture picture picture picture',
+          'graph graph graph graph graph graph graph graph service service service service',
+          'reservation reservation reservation calendar calendar calendar price price price review review review',
+          'reservation reservation reservation calendar calendar calendar price price price review review review',
+        ],
+        roomMobile: [
+          'graph',
+          'reservation',
+          'picture',
+          'service',
+          'calendar',
+          'price',
+          'review',
+        ],
+      },
       boxShadow: {
         dark_md: '0px 15px 15px rgba(255, 255, 255, 0.3)',
       },
