@@ -6,9 +6,9 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex w-[420px] rounded-sm border border-zinc-200 bg-white p-4 py-10 shadow-md dark:bg-dark-300">
+    <div className="relative flex w-[420px] max-w-[90%] rounded-sm border border-zinc-200 bg-white p-4 py-10 shadow-md dark:bg-dark-300">
       {children}
-      <div className="absolute -bottom-12 left-0 block w-full space-x-4 text-center text-sm font-semibold ">
+      <div className="absolute -bottom-12 left-0 block w-full space-x-4 text-center text-xs font-semibold md:text-sm ">
         <span className="select-none text-zinc-500">계정이 없으신가요?</span>
         <Link
           href="/signup"

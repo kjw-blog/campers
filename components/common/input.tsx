@@ -18,12 +18,12 @@ const Input = (
       <input
         type={type}
         required
-        className="peer w-full rounded-sm px-[10px] py-4 text-sm text-zinc-500 outline-none focus:placeholder:opacity-0"
+        className="peer w-full rounded-sm px-[10px] py-4 text-[10px] text-zinc-500 outline-none focus:placeholder:opacity-0 md:text-sm"
         placeholder={placeholder}
         autoComplete="off"
         {...register}
       />
-      <label className="absolute left-[10px] top-4 rounded-md bg-white px-1 text-sm text-zinc-500 opacity-0 transition peer-valid:-translate-y-[26px] peer-valid:text-camp-heavy peer-valid:opacity-100 peer-focus:-translate-y-[26px] peer-focus:text-camp-heavy peer-focus:opacity-100 dark:bg-dark-400 dark:peer-valid:text-white dark:peer-focus:text-white">
+      <label className="absolute left-[10px] top-4 rounded-md bg-white px-1  text-[10px] text-zinc-500 opacity-0 transition peer-valid:-translate-y-[26px] peer-valid:text-camp-heavy peer-valid:opacity-100 peer-focus:-translate-y-[26px] peer-focus:text-camp-heavy peer-focus:opacity-100 dark:bg-dark-400 dark:peer-valid:text-white dark:peer-focus:text-white md:text-sm">
         {label}
       </label>
       <p className="absolute -bottom-6 text-xs font-bold text-rose-600">
