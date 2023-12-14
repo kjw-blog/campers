@@ -1,7 +1,7 @@
 import { Room } from '@prisma/client';
 
-import { MobileToggle } from './mobile-toggle';
-import { VisibleToggleButton } from './visbile-toggle-button';
+import { MobileToggle } from '../mobile-toggle';
+import { VisibleToggleButton } from '../visbile-toggle-button';
 
 interface HostRoomHeaderProps {
   campId: string;

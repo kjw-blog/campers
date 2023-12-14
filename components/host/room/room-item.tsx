@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Room } from '@prisma/client';
 import { Edit, Trash2 } from 'lucide-react';
 
-import { TooltipWrapper } from '../common/tooltip-wrapper';
+import { TooltipWrapper } from '../../common/tooltip-wrapper';
 import { useModalStore } from '@/store/use-modal-store';
 import { cn } from '@/lib/utils';
 

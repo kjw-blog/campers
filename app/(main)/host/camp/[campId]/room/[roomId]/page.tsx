@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
-import { HostRoomContent } from '@/components/host/host-room-content';
-import { HostRoomHeader } from '@/components/host/host-room-header';
+import { HostRoomContent } from '@/components/host/room/host-room-content';
+import { HostRoomHeader } from '@/components/host/room/host-room-header';
 import { db } from '@/lib/db';
 
 export default async function RoomIdPage({

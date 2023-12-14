@@ -26,6 +26,8 @@ export const VisibleToggleButton = ({
   const onToggle = async () => {
     setIsLoading(true);
     try {
+      setToggle((prev) => !prev);
+
       const url = qs.stringifyUrl({
         url: '/api/host/room/visible',
         query: {
@@ -34,9 +36,8 @@ export const VisibleToggleButton = ({
         },
       });
 
-      const isVisible = await axios.patch(url);
+      await axios.patch(url);
 
-      setToggle(isVisible.data);
       router.refresh();
     } catch (e) {
       console.log(e);

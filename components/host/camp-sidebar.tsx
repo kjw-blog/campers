@@ -7,7 +7,7 @@ import { SearchButton } from './search-button';
 import { currentUser } from '@/lib/current-user';
 import { DashboardButton } from './dashboard-button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { RoomItem } from './room-item';
+import { RoomItem } from './room/room-item';
 
 export const CampSidebar = async ({ campId }: { campId: string }) => {
   const user = await currentUser();
