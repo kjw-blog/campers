@@ -7,7 +7,7 @@ import { SearchButton } from './search-button';
 import { currentUser } from '@/lib/current-user';
 import { DashboardButton } from './dashboard-button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { RoomItem } from './room/room-item';
+import { RoomLink } from './room/room-link';
 
 export const CampSidebar = async ({ campId }: { campId: string }) => {
   const user = await currentUser();
@@ -39,7 +39,7 @@ export const CampSidebar = async ({ campId }: { campId: string }) => {
       <Separator className="rounded-md bg-zinc-200 dark:bg-zinc-700" />
       <ScrollArea className="flex-1">
         {camp?.room.map((item) => (
-          <RoomItem key={item.id} room={item} campId={campId} />
+          <RoomLink key={item.id} room={item} campId={campId} />
         ))}
       </ScrollArea>
     </div>

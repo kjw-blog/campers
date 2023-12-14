@@ -1,4 +1,4 @@
-export const HostRoomContent = () => {
+export const Content = () => {
   return (
     <div className="grid h-[calc(100%-48px)] auto-rows-[minmax(200px,auto)] grid-cols-1 gap-[10px] p-4 grid-areas-roomMobile md:auto-rows-auto md:grid-cols-4 md:grid-areas-roomMd 2xl:grid-cols-12 2xl:grid-areas-room [&>*]:overflow-hidden [&>*]:rounded-md [&>*]:bg-zinc-700/10 [&>*]:dark:bg-dark-300">
       <div className="grid-in-picture">객실 사진 영역</div>

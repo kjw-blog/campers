@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
-import { HostRoomContent } from '@/components/host/room/host-room-content';
-import { HostRoomHeader } from '@/components/host/room/host-room-header';
 import { db } from '@/lib/db';
+import { Content } from '@/components/host/room/content';
+import { Header } from '@/components/host/room/header';
 
 export default async function RoomIdPage({
   params,
@@ -22,8 +22,8 @@ export default async function RoomIdPage({
 
   return (
     <div className="h-full w-full flex-col">
-      <HostRoomHeader campId={params.campId} room={room} />
-      <HostRoomContent />
+      <Header campId={params.campId} room={room} />
+      <Content />
     </div>
   );
 }

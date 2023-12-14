@@ -8,12 +8,12 @@ import { TooltipWrapper } from '../../common/tooltip-wrapper';
 import { useModalStore } from '@/store/use-modal-store';
 import { cn } from '@/lib/utils';
 
-interface RoomItemProps {
+interface RoomLinkProps {
   room: Room;
   campId: string;
 }
 
-export const RoomItem = ({ room, campId }: RoomItemProps) => {
+export const RoomLink = ({ room, campId }: RoomLinkProps) => {
   const { openModal } = useModalStore();
   const params = useParams();
   const router = useRouter();
