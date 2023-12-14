@@ -1,7 +1,9 @@
+import { ContentTitle } from './content-title';
+
 export const Review = () => {
   return (
     <div className="grid-in-review">
-      <div>리뷰 영역</div>
+      <ContentTitle title="후기" />
     </div>
   );
 };

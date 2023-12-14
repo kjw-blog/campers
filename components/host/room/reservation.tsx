@@ -1,3 +1,9 @@
+import { ContentTitle } from './content-title';
+
 export const Reservation = () => {
-  return <div className="grid-in-reservation">예약 내역 영역</div>;
+  return (
+    <div className="grid-in-reservation">
+      <ContentTitle title="예약 내역" />
+    </div>
+  );
 };
