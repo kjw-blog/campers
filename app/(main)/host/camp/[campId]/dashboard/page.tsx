@@ -1,4 +1,4 @@
-import { HostDashboardHeader } from '@/components/host/host-dashboard-header';
+import { Header } from '@/components/host/dashboard/header';
 
 export default function CampIdDashboardPage({
   params,
@@ -7,7 +7,7 @@ export default function CampIdDashboardPage({
 }) {
   return (
     <>
-      <HostDashboardHeader campId={params.campId} />
+      <Header campId={params.campId} />
     </>
   );
 }

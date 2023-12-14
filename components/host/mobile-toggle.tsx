@@ -12,7 +12,7 @@ export const MobileToggle = ({ campId }: { campId: string }) => {
           <Menu />
         </button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex gap-0 p-0">
+      <SheetContent side="left" className="flex gap-0 p-0 md:hidden">
         <div className="w-[72px]">
           <NavigationSidebar />
         </div>

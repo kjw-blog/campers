@@ -26,7 +26,7 @@ export const NavigationSidebar = async () => {
     <div className="flex h-full w-full flex-col items-center justify-center bg-camp-heavy py-4 transition dark:bg-dark-400">
       <NavigationAction />
       <div className="my-2 h-[2px] w-[48px] bg-zinc-500 dark:bg-camp-heavy" />
-      <div className="w-full flex-1">
+      <div className="w-full flex-[1_0]">
         {campList.map((camp) => (
           <div key={camp.id} className="mb-4">
             <NavigationItem camp={camp} />
