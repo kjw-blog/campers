@@ -73,13 +73,13 @@ export const SelectUserTypeDetail = ({ type }: SelectUserTypeDetailProps) => {
           }}
           className="flex flex-col items-center justify-center space-y-2"
         >
-          <Icon className="h-16 w-16 stroke-camp-heavy transition group-hover:stroke-white" />
+          <Icon className="h-12 w-12 stroke-camp-heavy transition group-hover:stroke-white md:h-16 md:w-16" />
           <div className="h-1 w-12 rounded-full bg-zinc-400 blur-sm group-hover:bg-zinc-700" />
         </div>
       </div>
       <div className="flex flex-col items-center justify-center space-y-2 py-2 dark:bg-dark-200">
-        <p className="font-semibold text-camp-heavy">{kr}</p>
-        <p className="text-xs text-zinc-700 dark:text-zinc-400">
+        <p className="text-sm font-semibold text-camp-heavy">{kr}</p>
+        <p className="text-[10px] text-zinc-700 dark:text-zinc-400 md:text-xs">
           {description}
         </p>
       </div>
