@@ -1,3 +1,4 @@
+import { useModalStore } from '@/store/use-modal-store';
 import { useRoomStore } from '@/store/use-room-data';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Minus, Plus } from 'lucide-react';
@@ -6,12 +7,30 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const Form = z.object({
-  baseGuestNumber: z.number(),
-  maximumGuestNumber: z.number(),
-  additionalPrice: z.number(),
-  peakSeasonPrice: z.number(),
-  semiPeakSeasonPrice: z.number(),
-  offSeasonPrice: z.number(),
+  baseGuestNumber: z
+    .number({ invalid_type_error: '기준 인원은 최소 1명 이상 이어야 합니다.' })
+    .gt(0, { message: '기준 인원은 최소 1명 이상 이어야 합니다.' }),
+  maximumGuestNumber: z
+    .number({ invalid_type_error: '기준 인원은 최소 1명 이상 이어야 합니다.' })
+    .gt(0, { message: '최대 인원은 최소 1명 이상 이어야 합니다.' }),
+  additionalPrice: z.number({
+    invalid_type_error: '올바른 값을 입력해 주세요.',
+  }),
+  peakSeasonPrice: z
+    .number({
+      invalid_type_error: '성수기 가격은 최소 1원 이상 이어야 합니다.',
+    })
+    .gt(0, { message: '성수기 가격은 최소 1원 이상 이어야 합니다.' }),
+  semiPeakSeasonPrice: z
+    .number({
+      invalid_type_error: '준성수기 가격은 최소 1원 이상 이어야 합니다.',
+    })
+    .gt(0, { message: '준성수기 가격은 최소 1원 이상 이어야 합니다.' }),
+  offSeasonPrice: z
+    .number({
+      invalid_type_error: '비성수기 가격은 최소 1원 이상 이어야 합니다.',
+    })
+    .gt(0, { message: '비성수기 가격은 최소 1원 이상 이어야 합니다.' }),
 });
 
 interface OptionsFormProps {
@@ -19,6 +38,8 @@ interface OptionsFormProps {
 }
 
 export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
+  const { openModal } = useModalStore();
+
   const { room } = useRoomStore();
 
   const {
@@ -26,13 +47,13 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
     setValue,
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<z.infer<typeof Form>>({
     resolver: zodResolver(Form),
     defaultValues: {
       additionalPrice: 0,
-      baseGuestNumber: 0,
       maximumGuestNumber: 0,
+      baseGuestNumber: 0,
       offSeasonPrice: 0,
       peakSeasonPrice: 0,
       semiPeakSeasonPrice: 0,
@@ -60,7 +81,7 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
       name === 'baseGuestNumber' &&
       value + 1 > otherValue
     ) {
-      setValue(otherName, value + 1);
+      setValue(otherName, Number(value + 1));
     }
 
     if (
@@ -68,10 +89,10 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
       name === 'maximumGuestNumber' &&
       value - 1 < otherValue
     ) {
-      setValue(otherName, value - 1);
+      setValue(otherName, Number(value - 1));
     }
 
-    setValue(name, value + (type === 'plus' ? 1 : -1));
+    setValue(name, Number(value + (type === 'plus' ? 1 : -1)));
   };
 
   useEffect(() => {
@@ -85,8 +106,8 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
       className="space-y-3"
     >
       <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
-        <span className="col-[1/3]">기준 인원</span>
-        <div className="col-[3/11] flex h-full">
+        <span className="col-[1/4] md:col-[1/3]">기준 인원</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
           <button
             onClick={() => peopleHandler('baseGuestNumber', 'minus')}
             type="button"
@@ -107,10 +128,15 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
             <Plus className="h-4 w-4" />
           </button>
         </div>
+        {errors?.baseGuestNumber && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.baseGuestNumber.message}
+          </p>
+        )}
       </div>
       <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
-        <span className="col-[1/3]">최대 인원</span>
-        <div className="col-[3/11] flex h-full">
+        <span className="col-[1/4] md:col-[1/3]">최대 인원</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
           <button
             onClick={() => peopleHandler('maximumGuestNumber', 'minus')}
             type="button"
@@ -131,6 +157,71 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
             <Plus className="h-4 w-4" />
           </button>
         </div>
+        {errors?.maximumGuestNumber && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.maximumGuestNumber.message}
+          </p>
+        )}
+      </div>
+      <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
+        <span className="col-[1/4] md:col-[1/3]">추가 인원 요금</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
+          <input
+            type="number"
+            className="flex-1 rounded-md border-2 px-2 outline-none dark:border-none"
+            {...register('additionalPrice', { valueAsNumber: true })}
+          />
+        </div>
+        {errors?.additionalPrice && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.additionalPrice.message}
+          </p>
+        )}
+      </div>
+      <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
+        <span className="col-[1/4] md:col-[1/3]">비성수기 가격</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
+          <input
+            type="number"
+            className="flex-1 rounded-md border-2 px-2 outline-none dark:border-none"
+            {...register('offSeasonPrice', { valueAsNumber: true })}
+          />
+        </div>
+        {errors?.offSeasonPrice && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.offSeasonPrice.message}
+          </p>
+        )}
+      </div>
+      <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
+        <span className="col-[1/4] md:col-[1/3]">준성수기 가격</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
+          <input
+            type="number"
+            className="flex-1 rounded-md border-2 px-2 outline-none dark:border-none"
+            {...register('semiPeakSeasonPrice', { valueAsNumber: true })}
+          />
+        </div>
+        {errors?.semiPeakSeasonPrice && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.semiPeakSeasonPrice.message}
+          </p>
+        )}
+      </div>
+      <div className="grid w-full auto-rows-[minmax(30px,auto)] grid-cols-10 items-center space-x-3">
+        <span className="col-[1/4] md:col-[1/3]">성수기 가격</span>
+        <div className="col-[4/11] flex h-full md:col-[3/11]">
+          <input
+            type="number"
+            className="flex-1 rounded-md border-2 px-2 outline-none dark:border-none"
+            {...register('peakSeasonPrice', { valueAsNumber: true })}
+          />
+        </div>
+        {errors?.peakSeasonPrice && (
+          <p className="col-[1/11] row-[2/3] text-left text-[10px] text-rose-500">
+            {errors?.peakSeasonPrice.message}
+          </p>
+        )}
       </div>
     </form>
   );
