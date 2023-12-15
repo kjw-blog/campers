@@ -1,14 +1,14 @@
 'use client';
 
 import { z } from 'zod';
-import Input from '@/components/common/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { useModalStore } from '@/store/use-modal-store';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+
+import Input from '@/components/common/input';
+import { useModalStore } from '@/store/use-modal-store';
 
 const LoginForm = z.object({
   userId: z.string().min(1, {
@@ -45,14 +45,6 @@ export default function LoginPage() {
       }
     });
   };
-
-  const [num, setNum] = useState(0);
-
-  console.log(num);
-  useEffect(() => {
-    setNum(1);
-    console.log('use Effect ', num);
-  }, [num]);
 
   return (
     <form

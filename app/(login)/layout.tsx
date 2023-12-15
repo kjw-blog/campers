@@ -20,7 +20,7 @@ export default function LoginLayout({
           <ThemeButton />
         </div>
       </div>
-      <div className="fixed left-0 top-0 m-0 flex h-12 w-full items-center justify-center border-b-[1px] border-zinc-300 dark:border-zinc-500 md:hidden">
+      <div className="fixed left-0 top-0 m-0 flex h-12 w-full items-center justify-center border-b-[1px] border-zinc-300 dark:border-zinc-500 md:invisible">
         <Link
           href="/login"
           className="select-none text-2xl font-bold text-camp-heavy transition dark:text-white"
