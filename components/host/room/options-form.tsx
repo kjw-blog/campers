@@ -120,6 +120,17 @@ export const OptionsForm = ({ onSubmitting, onClose }: OptionsFormProps) => {
     onSubmitting(isSubmitting);
   }, [isSubmitting, onSubmitting]);
 
+  useEffect(() => {
+    if (room?.baseGuestNumber && room?.baseGuestNumber > 0) {
+      setValue('baseGuestNumber', room?.baseGuestNumber);
+      setValue('additionalPrice', room?.additionalPrice);
+      setValue('maximumGuestNumber', room?.maximumGuestNumber);
+      setValue('offSeasonPrice', room?.offSeasonPrice);
+      setValue('peakSeasonPrice', room?.peakSeasonPrice);
+      setValue('semiPeakSeasonPrice', room?.semiPeakSeasonPrice);
+    }
+  }, [setValue, room]);
+
   return (
     <form
       id="save-room-options"
