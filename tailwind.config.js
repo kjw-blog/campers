@@ -20,8 +20,8 @@ module.exports = {
         room: [
           'graph graph graph graph graph graph graph graph picture picture picture picture',
           'graph graph graph graph graph graph graph graph service service service service',
-          'reservation reservation reservation reservation reservation review review review review review price price ',
-          'reservation reservation reservation reservation reservation review review review review review price price ',
+          'reservation reservation reservation reservation reservation review review review review review options options ',
+          'reservation reservation reservation reservation reservation review review review review review options options ',
         ],
         roomMd: [
           'graph graph graph graph',
@@ -29,15 +29,15 @@ module.exports = {
           'picture picture service service',
           'picture picture service service',
           'reservation reservation review review',
-          'reservation reservation price price',
+          'reservation reservation options options',
         ],
         roomXl: [
           'graph graph graph graph',
           'graph graph graph graph',
           'picture picture service service',
           'picture picture service service',
-          'reservation reservation price review',
-          'reservation reservation price review',
+          'reservation reservation options review',
+          'reservation reservation options review',
         ],
         roomMobile: [
           'graph',
@@ -45,7 +45,7 @@ module.exports = {
           'reservation',
           'picture',
           'service',
-          'price',
+          'options',
           'review',
         ],
       },
