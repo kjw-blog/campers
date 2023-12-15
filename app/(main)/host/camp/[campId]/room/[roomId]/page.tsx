@@ -14,16 +14,21 @@ export default async function RoomIdPage({
       id: params.roomId,
       campId: params.campId,
     },
+    include: {
+      roomImage: true,
+    },
   });
 
   if (!room) {
     return redirect('/');
   }
 
+  console.log(room);
+
   return (
     <div className="h-full w-full flex-col">
       <Header campId={params.campId} room={room} />
-      <Content />
+      <Content room={room} />
     </div>
   );
 }
