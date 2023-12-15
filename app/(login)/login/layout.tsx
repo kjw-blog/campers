@@ -8,14 +8,20 @@ export default function LoginLayout({
   return (
     <div className="relative flex w-[420px] max-w-[90%] rounded-sm border border-zinc-200 bg-white p-4 py-10 shadow-md dark:bg-dark-300">
       {children}
-      <div className="absolute -bottom-12 left-0 block w-full space-x-4 text-center text-xs font-semibold md:text-sm ">
-        <span className="select-none text-zinc-500">계정이 없으신가요?</span>
-        <Link
-          href="/signup"
-          className="cursor-pointer font-semibold text-camp-heavy"
-        >
-          가입하기
-        </Link>
+      <div className="absolute -bottom-16 left-0 flex w-full flex-col justify-center space-y-2 text-center text-xs font-semibold md:text-sm ">
+        <div className="space-x-4">
+          <span className="select-none text-zinc-500">계정이 없으신가요?</span>
+          <Link
+            href="/signup"
+            className="cursor-pointer font-semibold text-camp-heavy"
+          >
+            가입하기
+          </Link>
+        </div>
+        <div className="flex select-none flex-col text-zinc-700 dark:text-zinc-500">
+          <span>테스트용 계정</span>
+          <span>host001 / host@123</span>
+        </div>
       </div>
     </div>
   );
