@@ -1,12 +1,32 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import { ErrorModal } from '@/components/modal/error-modal';
-import { CreateCampModal } from '@/components/modal/create-camp-modal';
-import { RoomManageModal } from '@/components/modal/room-manage-modal';
-import { RoomDeleteModal } from '../modal/room-delete-modal';
-import { CampDeleteModal } from '../modal/camp-delete-modal';
+const ErrorModal = dynamic(() =>
+  import('@/components/modal/error-modal').then((mod) => mod.ErrorModal),
+);
+
+const CreateCampModal = dynamic(() =>
+  import('@/components/modal/create-camp-modal').then(
+    (mode) => mode.CreateCampModal,
+  ),
+);
+const RoomManageModal = dynamic(() =>
+  import('@/components/modal/room-manage-modal').then(
+    (mode) => mode.RoomManageModal,
+  ),
+);
+const RoomDeleteModal = dynamic(() =>
+  import('@/components/modal/room-delete-modal').then(
+    (mode) => mode.RoomDeleteModal,
+  ),
+);
+const CampDeleteModal = dynamic(() =>
+  import('@/components/modal/camp-delete-modal').then(
+    (mode) => mode.CampDeleteModal,
+  ),
+);
 
 export const ModalProvider = () => {
   const [onMount, setOnMount] = useState(false);
