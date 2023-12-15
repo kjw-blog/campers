@@ -4,9 +4,11 @@ import { useModalStore } from '@/store/use-modal-store';
 
 export const Options = () => {
   const { room } = useRoomStore();
-  const {} = useModalStore();
+  const { openModal } = useModalStore();
 
-  const onClick = () => {};
+  const onClick = () => {
+    openModal('room-options');
+  };
 
   return (
     <div className="grid-in-options flex flex-col">

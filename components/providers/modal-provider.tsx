@@ -28,6 +28,12 @@ const CampDeleteModal = dynamic(() =>
   ),
 );
 
+const RoomOptionsModal = dynamic(() =>
+  import('@/components/modal/room/options-modal').then(
+    (mode) => mode.OptionsModal,
+  ),
+);
+
 export const ModalProvider = () => {
   const [onMount, setOnMount] = useState(false);
 
@@ -44,6 +50,7 @@ export const ModalProvider = () => {
       <RoomManageModal />
       <RoomDeleteModal />
       <CampDeleteModal />
+      <RoomOptionsModal />
     </>
   );
 };
