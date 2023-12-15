@@ -22,6 +22,8 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
   const { room } = useRoomStore();
 
   const {
+    watch,
+    setValue,
     register,
     handleSubmit,
     formState: { isSubmitting },
@@ -41,6 +43,37 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
     console.log(data);
   };
 
+  const peopleHandler = (
+    name: 'baseGuestNumber' | 'maximumGuestNumber',
+    type: 'minus' | 'plus',
+  ) => {
+    const value = Number(watch(name));
+    const otherName =
+      name === 'baseGuestNumber' ? 'maximumGuestNumber' : 'baseGuestNumber';
+
+    const otherValue = Number(watch(otherName));
+
+    if (type === 'minus' && value <= 1) return;
+
+    if (
+      type === 'plus' &&
+      name === 'baseGuestNumber' &&
+      value + 1 > otherValue
+    ) {
+      setValue(otherName, value + 1);
+    }
+
+    if (
+      type === 'minus' &&
+      name === 'maximumGuestNumber' &&
+      value - 1 < otherValue
+    ) {
+      setValue(otherName, value - 1);
+    }
+
+    setValue(name, value + (type === 'plus' ? 1 : -1));
+  };
+
   useEffect(() => {
     onSubmitting(isSubmitting);
   }, [isSubmitting, onSubmitting]);
@@ -55,6 +88,7 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
         <span className="col-[1/3]">기준 인원</span>
         <div className="col-[3/11] flex h-full">
           <button
+            onClick={() => peopleHandler('baseGuestNumber', 'minus')}
             type="button"
             className="rounded-bl-md rounded-tl-md border-2 border-zinc-200 px-1 dark:border-none dark:bg-zinc-600"
           >
@@ -66,6 +100,7 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
             {...register('baseGuestNumber')}
           />
           <button
+            onClick={() => peopleHandler('baseGuestNumber', 'plus')}
             type="button"
             className="rounded-br-md rounded-tr-md border-2 border-zinc-200 px-1 dark:border-none dark:bg-zinc-600"
           >
@@ -77,6 +112,7 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
         <span className="col-[1/3]">최대 인원</span>
         <div className="col-[3/11] flex h-full">
           <button
+            onClick={() => peopleHandler('maximumGuestNumber', 'minus')}
             type="button"
             className="rounded-bl-md rounded-tl-md border-2 border-zinc-200 px-1 dark:border-none dark:bg-zinc-600"
           >
@@ -88,6 +124,7 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
             {...register('maximumGuestNumber')}
           />
           <button
+            onClick={() => peopleHandler('maximumGuestNumber', 'plus')}
             type="button"
             className="rounded-br-md rounded-tr-md border-2 border-zinc-200 px-1 dark:border-none dark:bg-zinc-600"
           >
