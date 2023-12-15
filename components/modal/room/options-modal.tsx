@@ -30,7 +30,7 @@ export const OptionsModal = () => {
             객실 설정
           </DialogTitle>
           <div className="select-none p-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
-            <OptionsForm onSubmitting={onSubmitting} />
+            <OptionsForm onSubmitting={onSubmitting} onClose={closeModal} />
           </div>
         </DialogHeader>
         <div className="ml-auto flex space-x-2 px-3 py-2">

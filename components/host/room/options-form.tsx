@@ -1,10 +1,13 @@
-import { useModalStore } from '@/store/use-modal-store';
-import { useRoomStore } from '@/store/use-room-data';
+import qs from 'query-string';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Minus, Plus } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useParams, useRouter } from 'next/navigation';
+import axios from 'axios';
+
+import { useRoomStore } from '@/store/use-room-data';
 
 const Form = z.object({
   baseGuestNumber: z
@@ -35,17 +38,19 @@ const Form = z.object({
 
 interface OptionsFormProps {
   onSubmitting: (value: boolean) => void;
+  onClose: () => void;
 }
 
-export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
-  const { openModal } = useModalStore();
-
+export const OptionsForm = ({ onSubmitting, onClose }: OptionsFormProps) => {
   const { room } = useRoomStore();
+  const router = useRouter();
+  const { campId, roomId } = useParams();
 
   const {
     watch,
     setValue,
     register,
+    reset,
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<z.infer<typeof Form>>({
@@ -60,8 +65,24 @@ export const OptionsForm = ({ onSubmitting }: OptionsFormProps) => {
     },
   });
 
-  const onValid = (data: z.infer<typeof Form>) => {
-    console.log(data);
+  const onValid = async (data: z.infer<typeof Form>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: '/api/host/room/options',
+        query: {
+          campId,
+          roomId,
+        },
+      });
+
+      await axios.patch(url, data);
+
+      reset();
+      router.refresh();
+      onClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const peopleHandler = (
