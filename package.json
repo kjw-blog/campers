@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.7.0",
     "@auth/prisma-adapter": "^1.0.6",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.6.0",
