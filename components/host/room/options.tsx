@@ -1,3 +1,5 @@
+import { MoreVertical } from 'lucide-react';
+
 import { useRoomStore } from '@/store/use-room-data';
 import { ContentTitle } from './content-title';
 import { useModalStore } from '@/store/use-modal-store';
@@ -11,8 +13,12 @@ export const Options = () => {
   };
 
   return (
-    <div className="grid-in-options flex flex-col">
-      <ContentTitle title="객실 설정" onClick={onClick} />
+    <div className="flex flex-col grid-in-options">
+      <ContentTitle title="객실 설정">
+        <button onClick={onClick}>
+          <MoreVertical className="h-4 w-4" />
+        </button>
+      </ContentTitle>
       <div className="grid flex-1 grid-cols-2 gap-2 text-sm text-zinc-700 dark:text-zinc-400 xl:auto-rows-[1fr] xl:grid-cols-1 2xl:text-lg">
         <div className="select-none space-y-2 p-2">
           <div className="flex flex-col">
