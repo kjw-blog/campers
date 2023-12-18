@@ -1,6 +1,7 @@
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+import am5themes_Responsive from '@amcharts/amcharts5/themes/Responsive';
 
 import { ContentTitle } from './content-title';
 import { useLayoutEffect } from 'react';
@@ -12,12 +13,26 @@ export const Graph = () => {
   useLayoutEffect(() => {
     const root = am5.Root.new('chart-element');
 
-    root.setThemes([am5themes_Animated.new(root)]);
+    const responsive = am5themes_Responsive.new(root);
+
+    responsive.addRule({
+      name: 'AxisRendererY',
+      relevant: function (width) {
+        return width < 1000;
+      },
+      settings: {},
+    });
+
+    root.setThemes([am5themes_Animated.new(root), responsive]);
 
     const chart = root.container.children.push(
       am5xy.XYChart.new(root, {
         panY: false,
         layout: root.verticalLayout,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 30,
+        paddingBottom: 30,
       }),
     );
 
@@ -82,17 +97,20 @@ export const Graph = () => {
 
     let xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
-        renderer: am5xy.AxisRendererX.new(root, {}),
-
+        renderer: am5xy.AxisRendererX.new(root, {
+          minGridDistance: 30,
+          minorGridEnabled: true,
+        }),
         categoryField: 'month',
       }),
     );
+
     xAxis.data.setAll(data);
 
     if (theme === 'dark') {
-      xAxis.get('renderer').labels.template.set('fill', am5.color('#D4D4D8'));
+      yAxis.get('renderer').labels.template.set('fill', am5.color('#A1A1AA'));
+      xAxis.get('renderer').labels.template.set('fill', am5.color('#A1A1AA'));
     }
-
     let series = chart.series.push(
       am5xy.LineSeries.new(root, {
         name: 'Series',
@@ -100,11 +118,23 @@ export const Graph = () => {
         yAxis: yAxis,
         valueYField: 'value1',
         categoryXField: 'month',
+        fill: am5.color('#42B983'),
+        stroke: am5.color('#42B983'),
         tooltip: am5.Tooltip.new(root, {
-          labelText: '{month} : ' + '{value1}만원',
+          labelText: '[#fff]{month} : {value1}만원',
         }),
       }),
     );
+
+    series.bullets.push(function () {
+      var bulletCircle = am5.Circle.new(root, {
+        radius: 3,
+        fill: series.get('fill'),
+      });
+      return am5.Bullet.new(root, {
+        sprite: bulletCircle,
+      });
+    });
 
     series.data.setAll(data);
 
