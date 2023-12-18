@@ -50,7 +50,7 @@ export const YearCalendar = () => {
         <PlayIcon className="h-3 w-3 rotate-180 fill-zinc-700 dark:fill-zinc-400" />
       </button>
       <button
-        className="text-sm"
+        className="text-sm transition hover:text-camp-heavy"
         onClick={() => setCalendarOpen((prev) => !prev)}
       >
         {selectedYear}
@@ -96,7 +96,7 @@ export const YearCalendar = () => {
                     }}
                     className={cn(
                       selectedYear === baseYear - i
-                        ? 'bg-zinc-200 dark:bg-zinc-700'
+                        ? 'bg-camp-heavy text-white'
                         : 'hover:bg-zinc-200 dark:hover:bg-zinc-700',
                     )}
                     key={i}
