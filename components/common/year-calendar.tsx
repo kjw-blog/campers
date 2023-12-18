@@ -11,8 +11,10 @@ export const YearCalendar = () => {
   const [baseYear, setBaseYear] = useState<number>(thisYear);
 
   const onClick = (type: 'prev' | 'next') => {
-    setSelectedYear((prevYear) => prevYear + (type === 'prev' ? -1 : 1));
-    setBaseYear((prevYear) => prevYear + (type === 'prev' ? -1 : 1));
+    const addYear = type === 'prev' ? -1 : 1;
+
+    setSelectedYear((prevYear) => prevYear + addYear);
+    setBaseYear(selectedYear + addYear);
   };
 
   const onBasePrevClick = () => {
