@@ -27,21 +27,21 @@ export const Options = () => {
             <span className="text-xs font-bold 2xl:text-sm">
               추가 인원 요금
             </span>
-            <span>{room?.additionalPrice}원</span>
+            <span>{room?.additionalPrice.toLocaleString('ko-KR')}원</span>
           </div>
         </div>
         <div className="select-none space-y-2 p-2">
           <div className="flex flex-col">
             <span className="text-xs font-bold 2xl:text-sm">비성수기 가격</span>
-            <span>{room?.offSeasonPrice}원</span>
+            <span>{room?.offSeasonPrice.toLocaleString('ko-KR')}원</span>
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-bold 2xl:text-sm">준성수기 가격</span>
-            <span>{room?.semiPeakSeasonPrice}원</span>
+            <span>{room?.semiPeakSeasonPrice.toLocaleString('ko-KR')}원</span>
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-bold 2xl:text-sm">성수기 가격</span>
-            <span>{room?.peakSeasonPrice}원</span>
+            <span>{room?.peakSeasonPrice.toLocaleString('ko-KR')}원</span>
           </div>
         </div>
       </div>

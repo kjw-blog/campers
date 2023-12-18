@@ -24,14 +24,14 @@ export const OptionsModal = () => {
 
   return (
     <Dialog open={open} onOpenChange={closeModal}>
-      <DialogContent className="z-50 w-[380px] max-w-[95%] gap-0 overflow-hidden rounded-md p-0 dark:bg-dark-200">
+      <DialogContent className="z-50 w-[450px] max-w-[95%] gap-0 overflow-hidden rounded-md p-0 dark:bg-dark-200">
         <DialogHeader>
           <DialogTitle className="bg-camp-heavy py-3 pl-4 text-left text-sm font-bold text-white">
             객실 설정
           </DialogTitle>
-          <DialogDescription className="select-none p-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
-            <OptionsForm onSubmitting={onSubmitting} />
-          </DialogDescription>
+          <div className="select-none p-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+            <OptionsForm onSubmitting={onSubmitting} onClose={closeModal} />
+          </div>
         </DialogHeader>
         <div className="ml-auto flex space-x-2 px-3 py-2">
           <button

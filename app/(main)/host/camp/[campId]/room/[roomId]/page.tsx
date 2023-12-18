@@ -23,8 +23,6 @@ export default async function RoomIdPage({
     return redirect('/');
   }
 
-  console.log(room);
-
   return (
     <div className="h-full w-full flex-col">
       <Header campId={params.campId} room={room} />
