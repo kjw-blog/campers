@@ -101,11 +101,15 @@ export const Graph = () => {
           minGridDistance: 30,
           minorGridEnabled: true,
         }),
+
         categoryField: 'month',
       }),
     );
 
     xAxis.data.setAll(data);
+
+    yAxis.get('renderer').labels.template.set('fontSize', '12px');
+    xAxis.get('renderer').labels.template.set('fontSize', '12px');
 
     if (theme === 'dark') {
       yAxis.get('renderer').labels.template.set('fill', am5.color('#A1A1AA'));
@@ -121,7 +125,7 @@ export const Graph = () => {
         fill: am5.color('#42B983'),
         stroke: am5.color('#42B983'),
         tooltip: am5.Tooltip.new(root, {
-          labelText: '[#fff]{month} : {value1}만원',
+          labelText: '[fontSize: 12px #fff]{month} : {value1}만원[/]',
         }),
       }),
     );
