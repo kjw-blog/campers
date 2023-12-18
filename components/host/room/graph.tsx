@@ -2,8 +2,6 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5themes_Responsive from '@amcharts/amcharts5/themes/Responsive';
-
-import { ContentTitle } from './content-title';
 import { useLayoutEffect } from 'react';
 import { useTheme } from 'next-themes';
 
@@ -150,12 +148,9 @@ export const Graph = () => {
   }, [theme]);
 
   return (
-    <div className="flex flex-col grid-in-graph">
-      <ContentTitle title="매출 그래프" />
-      <div
-        id="chart-element"
-        className="h-full w-full text-zinc-300 dark:bg-zinc-700"
-      />
-    </div>
+    <div
+      id="chart-element"
+      className="h-full w-full text-zinc-300 dark:bg-zinc-700"
+    />
   );
 };
