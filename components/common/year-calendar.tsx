@@ -1,6 +1,7 @@
 import { PlayIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const thisYear = new Date().getFullYear();
 
@@ -93,7 +94,11 @@ export const YearCalendar = () => {
                       setBaseYear(baseYear - i);
                       setCalendarOpen(false);
                     }}
-                    className=" hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                    className={cn(
+                      selectedYear === baseYear - i
+                        ? 'bg-zinc-200 dark:bg-zinc-700'
+                        : 'hover:bg-zinc-200 dark:hover:bg-zinc-700',
+                    )}
                     key={i}
                   >
                     {baseYear - i}
