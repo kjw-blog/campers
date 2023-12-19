@@ -116,3 +116,18 @@ body,
   color: rgb(0 0 0 / 0.5);
   cursor: not-allowed;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #42b983 !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #42b983 !important;
+}
