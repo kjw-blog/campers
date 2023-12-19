@@ -1,14 +1,22 @@
 import { PlayIcon } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { cn } from '@/lib/utils';
 
-const thisYear = new Date().getFullYear();
+interface YearCalendarProps {
+  selectedYear: number;
+  setSelectedYear: Dispatch<SetStateAction<number>>;
+  thisYear: number;
+}
 
-export const YearCalendar = () => {
+export const YearCalendar = ({
+  selectedYear,
+  setSelectedYear,
+  thisYear,
+}: YearCalendarProps) => {
   const calendarRef = useRef<HTMLDivElement>(null);
   const [calendarOpen, setCalendarOpen] = useState(false);
-  const [selectedYear, setSelectedYear] = useState<number>(thisYear);
   const [baseYear, setBaseYear] = useState<number>(thisYear);
 
   const onClick = (type: 'prev' | 'next') => {
@@ -85,7 +93,7 @@ export const YearCalendar = () => {
                 <PlayIcon className="h-3 w-3 fill-zinc-700 group-disabled:invisible dark:fill-zinc-400" />
               </button>
             </div>
-            <div className="grid auto-rows-[minmax(40px,auto)] grid-cols-[repeat(2,minmax(120px,auto))] gap-1 [&>*]:rounded-md [&>*]:duration-300">
+            <div className="grid auto-rows-[minmax(40px,auto)] grid-cols-[repeat(2,minmax(120px,auto))] gap-1 pt-2 [&>*]:rounded-md [&>*]:duration-300">
               {Array.from({ length: 10 })
                 .map((_, i) => (
                   <button

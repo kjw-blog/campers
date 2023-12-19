@@ -5,7 +5,11 @@ import am5themes_Responsive from '@amcharts/amcharts5/themes/Responsive';
 import { useLayoutEffect } from 'react';
 import { useTheme } from 'next-themes';
 
-export const Graph = () => {
+interface GraphProps {
+  data: any[];
+}
+
+export const Graph = ({ data }: GraphProps) => {
   const { theme } = useTheme();
 
   useLayoutEffect(() => {
@@ -33,57 +37,6 @@ export const Graph = () => {
         paddingBottom: 30,
       }),
     );
-
-    let data = [
-      {
-        month: '1월',
-        value1: 12.9,
-      },
-      {
-        month: '2월',
-        value1: 15.7,
-      },
-      {
-        month: '3월',
-        value1: 14.1,
-      },
-      {
-        month: '4월',
-        value1: 142.5,
-      },
-      {
-        month: '5월',
-        value1: 52.9,
-      },
-      {
-        month: '6월',
-        value1: 42.9,
-      },
-      {
-        month: '7월',
-        value1: 72.4,
-      },
-      {
-        month: '8월',
-        value1: 58.9,
-      },
-      {
-        month: '9월',
-        value1: 22.9,
-      },
-      {
-        month: '10월',
-        value1: 8.7,
-      },
-      {
-        month: '11월',
-        value1: 112.4,
-      },
-      {
-        month: '12월',
-        value1: 81.9,
-      },
-    ];
 
     let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
@@ -118,12 +71,12 @@ export const Graph = () => {
         name: 'Series',
         xAxis: xAxis,
         yAxis: yAxis,
-        valueYField: 'value1',
+        valueYField: 'value',
         categoryXField: 'month',
         fill: am5.color('#42B983'),
         stroke: am5.color('#42B983'),
         tooltip: am5.Tooltip.new(root, {
-          labelText: '[fontSize: 12px #fff]{month} : {value1}만원[/]',
+          labelText: '[fontSize: 12px #fff]{month} : {value}만원[/]',
         }),
       }),
     );
@@ -145,7 +98,7 @@ export const Graph = () => {
     return () => {
       root.dispose();
     };
-  }, [theme]);
+  }, [theme, data]);
 
   return (
     <div
