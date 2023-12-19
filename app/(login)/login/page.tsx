@@ -22,6 +22,7 @@ const LoginForm = z.object({
 
 export default function LoginPage() {
   const { openModal } = useModalStore();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -33,21 +34,26 @@ export default function LoginPage() {
   });
 
   const onValid = async (data: z.infer<typeof LoginForm>) => {
-    await signIn('credentials', {
-      userId: data.userId,
-      password: data.userPw,
-      callbackUrl: '/',
-      redirect: false,
-    }).then((res) => {
-      if (res?.error) {
-        openModal('error', { text: res.error });
-      } else {
-        router.push('/');
-      }
-    });
-  };
+    try {
+      setIsLoading(true);
 
-  const [onDialog, setOnDialog] = useState(true);
+      await signIn('credentials', {
+        userId: data.userId,
+        password: data.userPw,
+        callbackUrl: '/',
+        redirect: false,
+      }).then((res) => {
+        if (res?.error) {
+          openModal('error', { text: res.error });
+          setIsLoading(false);
+        } else {
+          router.push('/');
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -73,7 +79,11 @@ export default function LoginPage() {
           disabled={isSubmitting}
           className="flex w-full justify-center rounded-sm bg-camp-heavy py-2 text-center font-semibold text-white dark:bg-dark-400"
         >
-          {isSubmitting ? <Loader2 className="animate-spin" /> : '로그인'}
+          {isSubmitting || isLoading ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            '로그인'
+          )}
         </button>
       </form>
     </>
