@@ -34,7 +34,7 @@ export const Picture = () => {
             slidesPerView={1}
             pagination={{ clickable: true }}
             navigation
-            autoplay={{ delay: 3000 }}
+            autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
             loop={true}
             rewind={true}
             className="h-full w-full"
