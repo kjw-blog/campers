@@ -1,7 +1,6 @@
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
-import am5themes_Responsive from '@amcharts/amcharts5/themes/Responsive';
 import { useLayoutEffect } from 'react';
 import { useTheme } from 'next-themes';
 
@@ -15,17 +14,7 @@ export const Graph = ({ data }: GraphProps) => {
   useLayoutEffect(() => {
     const root = am5.Root.new('chart-element');
 
-    const responsive = am5themes_Responsive.new(root);
-
-    responsive.addRule({
-      name: 'AxisRendererY',
-      relevant: function (width) {
-        return width < 1000;
-      },
-      settings: {},
-    });
-
-    root.setThemes([am5themes_Animated.new(root), responsive]);
+    root.setThemes([am5themes_Animated.new(root)]);
 
     const chart = root.container.children.push(
       am5xy.XYChart.new(root, {
@@ -42,6 +31,7 @@ export const Graph = ({ data }: GraphProps) => {
       am5xy.ValueAxis.new(root, {
         renderer: am5xy.AxisRendererY.new(root, {
           strokeOpacity: 0.1,
+          cellStartLocation: 0,
         }),
       }),
     );
@@ -94,6 +84,7 @@ export const Graph = ({ data }: GraphProps) => {
     series.data.setAll(data);
 
     chart.set('cursor', am5xy.XYCursor.new(root, {}));
+    chart.appear(1000, 0);
 
     return () => {
       root.dispose();
