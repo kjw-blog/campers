@@ -1,4 +1,4 @@
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
+import { Navigation, A11y, Autoplay } from 'swiper/modules';
 import { MoreVertical } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
@@ -38,7 +38,7 @@ export const Picture = () => {
             rewind={true}
             className="h-full w-full"
           >
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: 10 }).map((_, i) => (
               <SwiperSlide key={i} className="h-full w-full">
                 <div className="relative h-full w-full">
                   <Image
@@ -49,10 +49,12 @@ export const Picture = () => {
                       objectFit: 'contain',
                     }}
                   />
-                  <div className="absolute bottom-2 right-0 flex items-center space-x-2 rounded-bl-md rounded-tl-md bg-zinc-300/50 px-2 py-1 text-[10px] text-zinc-700 dark:bg-zinc-700/70 dark:text-zinc-400 md:max-w-[100px]">
-                    <span>일본</span>
+                  <div className="absolute bottom-2 right-0 flex items-center space-x-2 rounded-bl-md rounded-tl-md bg-zinc-300/70 px-2 py-1 text-[10px] text-zinc-700 dark:bg-zinc-700/70 dark:text-zinc-400 ">
+                    <span className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
+                      {'일본'.repeat(i + 1)}
+                    </span>
                     <div className="h-[10px] w-[2px] bg-zinc-400 dark:bg-zinc-600" />
-                    <div className="">{i + 1}/5</div>
+                    <div className="">{i + 1}/10</div>
                   </div>
                 </div>
               </SwiperSlide>
