@@ -59,8 +59,22 @@ model User {
   sessions      Session[]
   campground    Campground[]
 
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  loginHistory LoginHistory[]
+}
+
+model LoginHistory {
+  id String @id @default(cuid())
+  ip String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model VerificationToken {
@@ -121,7 +135,8 @@ model Room {
 }
 
 model RoomImage {
-  id String @id @default(cuid())
+  id      String  @id @default(cuid())
+  caption String?
 
   imageUrl String @db.Text
 
