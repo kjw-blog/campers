@@ -1,22 +1,13 @@
-import { AnimatePresence, motion, useTransform } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import DaumPostCode, { Address, Search } from 'react-daum-postcode';
+import DaumPostCode, { Address } from 'react-daum-postcode';
 import { createPortal } from 'react-dom';
+import { BackDrop } from '../common/backdrop';
 
 interface AddressModalProps {
   onClose: () => void;
   onComplete: (address: Address) => void;
 }
-
-const BackDrop = ({ onClose }: Pick<AddressModalProps, 'onClose'>) => {
-  return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      className="fixed left-0 top-0 z-[99] h-[100vh] w-[100vw] backdrop-blur-sm"
-    />
-  );
-};
 
 export const AddressModal = ({ onClose, onComplete }: AddressModalProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
