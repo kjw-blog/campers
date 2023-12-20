@@ -23,12 +23,19 @@ export const AddImageModal = () => {
             객실 사진
           </div>
         </header>
-        <div className="max-h-[400px] w-full select-none divide-y-2 divide-zinc-700 overflow-y-auto p-3  text-xs font-bold text-zinc-600 dark:divide-zinc-400 dark:text-zinc-400">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} className="flex h-[80px] w-full items-center py-2">
-              이미지 {i + 1}
-            </div>
-          ))}
+        <div className="flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
+          <div className="h-[60px] w-full border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
+            체크박스, 이미지명, 이미지, 수정버튼 타이틀
+          </div>
+          <div className="flex-1 divide-y-[1px] divide-zinc-700 overflow-y-auto text-xs font-bold dark:divide-zinc-400">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="flex h-[80px] w-full items-center py-2">
+                {i === 0
+                  ? '드래그 앤 드랍 순서바꾸기 구현해야됨'
+                  : `이미지 ${i + 1}`}
+              </div>
+            ))}
+          </div>
         </div>
         <div className="ml-auto flex justify-end space-x-2 px-3 py-2">
           <button
