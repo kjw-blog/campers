@@ -33,6 +33,11 @@ const RoomOptionsModal = dynamic(() =>
     (mode) => mode.OptionsModal,
   ),
 );
+const RoomAddImageModal = dynamic(() =>
+  import('@/components/modal/room/add-image-modal').then(
+    (mode) => mode.AddImageModal,
+  ),
+);
 
 export const ModalProvider = () => {
   const [onMount, setOnMount] = useState(false);
@@ -51,6 +56,7 @@ export const ModalProvider = () => {
       <RoomDeleteModal />
       <CampDeleteModal />
       <RoomOptionsModal />
+      <RoomAddImageModal />
     </>
   );
 };

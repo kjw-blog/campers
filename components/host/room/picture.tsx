@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 
 import { ContentTitle } from './content-title';
+import { useModalStore } from '@/store/use-modal-store';
 import { useRoomStore } from '@/store/use-room-data';
 
 import 'swiper/css';
@@ -12,10 +13,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 export const Picture = () => {
+  const { openModal } = useModalStore();
   const { room } = useRoomStore();
 
   const onClick = () => {
-    alert('click');
+    openModal('room-add-image');
   };
 
   return (

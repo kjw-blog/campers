@@ -10,6 +10,7 @@ type ModalType =
   | 'room-delete'
   | 'camp-delete'
   | 'room-options'
+  | 'room-add-image'
   | null;
 
 type DataType = {
