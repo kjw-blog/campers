@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 import { useModalStore } from '@/store/use-modal-store';
@@ -10,10 +10,6 @@ export const AddImageModal = () => {
 
   const open = isOpen && type === 'room-add-image';
 
-  const onSubmitting = useCallback((value: boolean) => {
-    setIsSubmitting(value);
-  }, []);
-
   return (
     <Modal open={open} onClose={closeModal}>
       <div className="z-50 flex w-[500px] max-w-[100%] flex-col gap-0 space-y-2 overflow-hidden rounded-md p-0 dark:bg-dark-200">
@@ -23,8 +19,16 @@ export const AddImageModal = () => {
           </div>
         </header>
         <div className="flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
-          <div className="h-[60px] w-full border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
-            체크박스, 이미지명, 이미지, 수정버튼 타이틀
+          <div className="grid h-[60px] w-full grid-cols-4 border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
+            <label className="flex h-4 w-4 items-center justify-center overflow-hidden rounded-sm border-[1px] border-zinc-600 dark:border-zinc-400">
+              <input type="checkbox" className="peer hidden" />
+              <div className="h-4 w-4 transition peer-checked:bg-camp-heavy peer-checked:[&>*]:scale-100">
+                <Check className="h-4 w-4 scale-0 stroke-white stroke-[3px] transition peer-checked:scale-100" />
+              </div>
+            </label>
+            <div>이미지 명</div>
+            <div>이미지</div>
+            <div>수정버튼</div>
           </div>
           <div className="flex-1 divide-y-[1px] divide-zinc-700 overflow-y-auto text-xs font-bold dark:divide-zinc-400">
             {Array.from({ length: 10 }).map((_, i) => (
