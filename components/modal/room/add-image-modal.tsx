@@ -1,15 +1,83 @@
-import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 
 import { useModalStore } from '@/store/use-modal-store';
 import { Modal } from './modal';
 import { Checkbox } from '@/components/common/checkbox';
+import Image from 'next/image';
+
+const dummy_data = [
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지이미지이미지이미지이미지이미지',
+    id: 1,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 2',
+    id: 2,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 3',
+    id: 3,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 4',
+    id: 4,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 5',
+    id: 5,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 6',
+    id: 6,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 7',
+    id: 7,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 8',
+    id: 8,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 9',
+    id: 9,
+  },
+  {
+    imageSrc:
+      'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
+    name: '이미지 10',
+    id: 10,
+  },
+];
 
 export const AddImageModal = () => {
   const { isOpen, type, closeModal } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [viewGrid, setViewGrid] = useState(false);
+  const [data, setData] = useState(dummy_data);
 
   const open = isOpen && type === 'room-add-image';
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <Modal open={open} onClose={closeModal}>
@@ -19,19 +87,37 @@ export const AddImageModal = () => {
             객실 사진
           </div>
         </header>
-        <div className="flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
-          <div className="grid h-[60px] w-full grid-cols-4 border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
-            <Checkbox />
-            <div>이미지 명</div>
-            <div>이미지</div>
-            <div>수정버튼</div>
+        <div className="relative flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
+          <div className="grid h-[60px] w-[calc(100%-10px)] grid-cols-[repeat(13,1fr)] items-center justify-items-center border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
+            <Checkbox onChange={onChange} className="col-[1/2]" />
+            <div className="col-[2/8]">이미지 명</div>
+            <div className="col-[8/14]">이미지</div>
           </div>
-          <div className="flex-1 divide-y-[1px] divide-zinc-700 overflow-y-auto text-xs font-bold dark:divide-zinc-400">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="flex h-[80px] w-full items-center py-2">
-                {i === 0
-                  ? '드래그 앤 드랍 순서바꾸기 구현해야됨'
-                  : `이미지 ${i + 1}`}
+          <div className="w-full flex-1 divide-y-[1px] divide-zinc-700 overflow-y-auto text-xs font-bold dark:divide-zinc-400">
+            {dummy_data.map((image) => (
+              <div
+                key={image.id}
+                className="grid h-[80px] w-full grid-cols-[repeat(13,1fr)] items-center justify-items-center py-2"
+              >
+                <Checkbox onChange={() => {}} className="col-[1/2]" />
+                <div className="col-[2/8] w-full px-2">
+                  <span
+                    title={image.name}
+                    className="block w-full overflow-hidden text-ellipsis whitespace-nowrap text-center"
+                  >
+                    {image.name}
+                  </span>
+                </div>
+                <div className="relative col-[8/14] h-full w-full bg-teal-50">
+                  <Image
+                    src="https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG"
+                    alt="객실사진"
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                  />
+                </div>
               </div>
             ))}
           </div>
