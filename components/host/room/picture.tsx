@@ -48,7 +48,7 @@ export const Picture = () => {
                     alt="객실사진"
                     fill
                     style={{
-                      objectFit: 'contain',
+                      objectFit: 'cover',
                     }}
                   />
                   <div className="absolute bottom-2 right-0 flex items-center space-x-2 rounded-bl-md rounded-tl-md bg-zinc-300/70 px-2 py-1 text-[10px] text-zinc-700 dark:bg-zinc-700/70 dark:text-zinc-400 ">

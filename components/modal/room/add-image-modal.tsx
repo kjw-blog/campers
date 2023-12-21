@@ -2,7 +2,6 @@ import { Loader2 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 import { useModalStore } from '@/store/use-modal-store';
-import { OptionsForm } from '@/components/host/room/options-form';
 import { Modal } from './modal';
 
 export const AddImageModal = () => {
