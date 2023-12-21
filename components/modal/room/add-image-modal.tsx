@@ -11,73 +11,91 @@ const dummy_data = [
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지이미지이미지이미지이미지이미지',
-    id: 1,
+    id: 'item_ 1',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 2',
-    id: 2,
+    id: 'item_ 2',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 3',
-    id: 3,
+    id: 'item_ 3',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 4',
-    id: 4,
+    id: 'item_ 4',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 5',
-    id: 5,
+    id: 'item_ 5',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 6',
-    id: 6,
+    id: 'item_ 6',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 7',
-    id: 7,
+    id: 'item_ 7',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 8',
-    id: 8,
+    id: 'item_ 8',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 9',
-    id: 9,
+    id: 'item_ 9',
   },
   {
     imageSrc:
       'https://utfs.io/f/e3479ef9-00ee-4e28-9a35-2da302204baa-3jsln.JPG',
     name: '이미지 10',
-    id: 10,
+    id: 'item_10',
   },
 ];
 
 export const AddImageModal = () => {
   const { isOpen, type, closeModal } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [viewGrid, setViewGrid] = useState(false);
   const [data, setData] = useState(dummy_data);
+  const [checkedItem, setCheckedItem] = useState<string[]>([]);
 
   const open = isOpen && type === 'room-add-image';
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const onAllChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheckedItem(data.map((item) => item.id));
+    } else {
+      setCheckedItem([]);
+    }
+  };
+
+  const onSingleChecked = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (e.target.checked) {
+      setCheckedItem((prev) => [...prev, id]);
+    } else {
+      const filteredItem = checkedItem.filter((item) => item !== id);
+      setCheckedItem(filteredItem);
+    }
+  };
 
   return (
     <Modal open={open} onClose={closeModal}>
@@ -89,17 +107,25 @@ export const AddImageModal = () => {
         </header>
         <div className="relative flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
           <div className="grid h-[60px] w-[calc(100%-10px)] grid-cols-[repeat(13,1fr)] items-center justify-items-center border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
-            <Checkbox onChange={onChange} className="col-[1/2]" />
+            <Checkbox
+              checked={data.length === checkedItem.length}
+              onChange={onAllChecked}
+              className="col-[1/2]"
+            />
             <div className="col-[2/8]">이미지 명</div>
             <div className="col-[8/14]">이미지</div>
           </div>
           <div className="w-full flex-1 divide-y-[1px] divide-zinc-700 overflow-y-auto text-xs font-bold dark:divide-zinc-400">
-            {dummy_data.map((image) => (
+            {data.map((image) => (
               <div
                 key={image.id}
                 className="grid h-[80px] w-full grid-cols-[repeat(13,1fr)] items-center justify-items-center py-2"
               >
-                <Checkbox onChange={() => {}} className="col-[1/2]" />
+                <Checkbox
+                  onChange={(e) => onSingleChecked(e, image.id)}
+                  checked={checkedItem.includes(image.id)}
+                  className="col-[1/2]"
+                />
                 <div className="col-[2/8] w-full px-2">
                   <span
                     title={image.name}
