@@ -1,8 +1,9 @@
-import { Check, Loader2 } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 import { useModalStore } from '@/store/use-modal-store';
 import { Modal } from './modal';
+import { Checkbox } from '@/components/common/checkbox';
 
 export const AddImageModal = () => {
   const { isOpen, type, closeModal } = useModalStore();
@@ -20,12 +21,7 @@ export const AddImageModal = () => {
         </header>
         <div className="flex max-h-[460px] w-full select-none flex-col p-3 text-zinc-600 dark:text-zinc-400">
           <div className="grid h-[60px] w-full grid-cols-4 border-b-[1px] border-zinc-700 text-sm font-bold dark:border-zinc-400">
-            <label className="flex h-4 w-4 items-center justify-center overflow-hidden rounded-sm border-[1px] border-zinc-600 dark:border-zinc-400">
-              <input type="checkbox" className="peer hidden" />
-              <div className="h-4 w-4 transition peer-checked:bg-camp-heavy peer-checked:[&>*]:scale-100">
-                <Check className="h-4 w-4 scale-0 stroke-white stroke-[3px] transition peer-checked:scale-100" />
-              </div>
-            </label>
+            <Checkbox />
             <div>이미지 명</div>
             <div>이미지</div>
             <div>수정버튼</div>
