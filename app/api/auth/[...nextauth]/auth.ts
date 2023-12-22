@@ -38,6 +38,9 @@ export const authOptions: AuthOptions = {
         await db.user.update({
           where: {
             id: user.id,
+            NOT: {
+              userId: 'host123',
+            },
           },
           data: {
             loginHistory: {
