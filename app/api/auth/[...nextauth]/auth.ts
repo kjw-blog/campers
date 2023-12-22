@@ -33,23 +33,24 @@ export const authOptions: AuthOptions = {
         if (!(await bcrypt.compare(credentials.password, user.password)))
           throw new Error('비밀번호가 일치하지 않습니다.');
 
-        const geolocation = await axios.get('https://geolocation-db.com/json/');
+        if (user.userId !== 'host123') {
+          const geolocation = await axios.get(
+            'https://geolocation-db.com/json/',
+          );
 
-        await db.user.update({
-          where: {
-            id: user.id,
-            NOT: {
-              userId: 'host123',
+          await db.user.update({
+            where: {
+              id: user.id,
             },
-          },
-          data: {
-            loginHistory: {
-              create: {
-                ip: geolocation.data.IPv4,
+            data: {
+              loginHistory: {
+                create: {
+                  ip: geolocation.data.IPv4,
+                },
               },
             },
-          },
-        });
+          });
+        }
 
         return user;
       },
